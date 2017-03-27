@@ -1,0 +1,37 @@
+{
+    "name": "NewPing", 
+    "platforms": [
+        "atmelavr", 
+        "teensy"
+    ], 
+    "downloadUrl": "https://bitbucket.org/teckel12/arduino-new-ping/downloads/NewPing_v1.8.zip", 
+    "frameworks": [
+        "arduino"
+    ], 
+    "version": "1.8", 
+    "export": {
+        "include": "NewPing"
+    }, 
+    "authors": [
+        {
+            "maintainer": false, 
+            "name": "Tim Eckel", 
+            "url": "https://bitbucket.org/teckel12/arduino-new-ping", 
+            "email": "tim@leethost.com"
+        }
+    ], 
+    "keywords": [
+        "distance", 
+        "sr04", 
+        "dyp-me007", 
+        "ping", 
+        "parallax ping", 
+        "ultrasonic", 
+        "sonar", 
+        "jsn-sr04t", 
+        "srf06", 
+        "srf05"
+    ], 
+    "id": 176, 
+    "description": "Ultrasonic ping sensor library that works with most sensors, can use a single interface wire, doesn't hang, can run in the background, and is smaller and faster that all other ping libraries."
+}
