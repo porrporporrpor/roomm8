@@ -1,4 +1,4 @@
-void temperature(float temp, float arr[10]) {
+void temperature(float temp, float arr[N]) {
   int i, j;
   arr[count] = temp;
   Serial.print(temp);
@@ -18,24 +18,16 @@ void temperature(float temp, float arr[10]) {
 
 // This loop will sol linearforcast
 
-//int linearforcast(float arr[N])
-//{
-//    int i;
-//    float total = 0;
-//    float arr[N];
-//    //This loop for arr
-//    for (i = 0; i < N; i++)
-//    {
-//        scanf("%f", &arr[i]);
-//    }
-//
-//
-//    //This loop for sol
-//    for (i = 0; i < 3; i++)
-//    {
-//        total += arr[i];
-//    }
-//
-//    Serial.print("%f", total/N);
-//    return 0;
-//}
+void linearforcast(float arr[N])
+{
+    int i;
+    float total = 0;
+
+    //This loop for sol
+    for (i = 0; i < 3; i++)
+    {
+        total += arr[i];
+    }
+
+    Serial.println(total/N);
+}
