@@ -30,7 +30,7 @@ int RM1 =  6;       // right motor
 
 // temperature
 float temp = 0, arr[10];
-int count = 1;
+int count = 0;
 void setup() {
 
   pinMode(initPin1, OUTPUT);

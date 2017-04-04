@@ -11,10 +11,12 @@ void temperature(float temp, float arr[10]) {
     for (i=0; i<N; ++i)
       for (j=0; j<N-1; ++j)
         arr[j+1] = arr[j];
-    *(&count) = 1;
+    *(&count) = 2;
   }
 
 }
+
+// This loop will sol linearforcast
 
 //int linearforcast(float arr[N])
 //{
