@@ -13,13 +13,11 @@ if (front < 30 && left >= 30 && right >= 30) {
     digitalWrite(LM1, LOW);
     Serial.print("Left turn : ");
     display_run_mode("Break!", "Go Left");
-    delay(600);
   } else {
     digitalWrite(RM1, LOW);
     digitalWrite(LM1, HIGH);
     Serial.print("Right turn : ");
     display_run_mode("Break!", "Go Right");
-    delay(600);
   }
 } else {
   //Turn Left : Right Sensor is close to some object.
@@ -30,12 +28,10 @@ if (front < 30 && left >= 30 && right >= 30) {
     if (front < 30) {
       Serial.print("Left turn : ");
       display_run_mode("Left turn!", "none");
-      delay(600);
     } else {
       // Front Sensor isn't close. Avoid Right.
       Serial.print("Right Avoid : ");
       display_run_mode("Right Avoid!", "none");
-      delay(300);
     }
 
   } else {
@@ -47,12 +43,10 @@ if (front < 30 && left >= 30 && right >= 30) {
         // Front Sensor is also close too. Turn Right to avoid collision.
         Serial.print("Right turn : ");
         display_run_mode("Right turn!", "none");
-        delay(600);
       } else {
         // Front Sensor isn't close. Avoid Left.
         Serial.print("Left Avoid:");
         display_run_mode("Left Avoid!", "none");
-        delay(300);
       }
     } else {
       display_run_mode("Normal", "none");

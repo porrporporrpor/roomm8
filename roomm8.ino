@@ -55,5 +55,6 @@ void loop() {
 
   // send Distances to movement handle
   movement(distance_front, distance_left, distance_right);
+  delay(500);
 
 }
