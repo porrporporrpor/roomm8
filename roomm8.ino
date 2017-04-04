@@ -1,8 +1,12 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <DS3231.h>
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
+
+//DS3231 setup
+DS3231 rtc(SDA, SCL);
 
 //Sonar Front
 int echoPin1 =12;
@@ -23,7 +27,9 @@ int distance_right =0;
 int LM1 = 7;      // left motor
 int RM1 =  6;       // right motor
 
-
+// temperature
+float temp = 0, arr[10];
+int count = 0;
 void setup() {
 
   pinMode(initPin1, OUTPUT);
@@ -44,6 +50,10 @@ void setup() {
   lcd.print("Standby Mode");
   delay(2000);
 
+  // rtc
+  rtc.begin();
+  
+
 }
 
 void loop() {
@@ -55,5 +65,11 @@ void loop() {
 
   // send Distances to movement handle
   movement(distance_front, distance_left, distance_right);
+
+  // temperature
+  temp = (rtc.getTemp() * (9/5)) + 32;;
+  temperature(temp, arr);
+  Serial.println(count);
+  count++;
 
 }
