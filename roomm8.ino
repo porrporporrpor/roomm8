@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <DS3231.h>
+#define N 3
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
@@ -29,7 +30,7 @@ int RM1 =  6;       // right motor
 
 // temperature
 float temp = 0, arr[10];
-int count = 0;
+int count = 1;
 void setup() {
 
   pinMode(initPin1, OUTPUT);
