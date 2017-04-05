@@ -1,28 +1,37 @@
-void temperature(float temp, float arr[2]) {
+void temperature(float temp, float arr[10]) {
   int i, j;
   arr[count] = temp;
-  if (count == 2) {
+  if (count == 9) {
     // uncommnet when complete linearforcast function
-    // linearforcast(arr);
+    linearRegression(arr);
 
     // sorting
-    arr[0] = arr[1];
-    arr[1] = arr[2];
+    for (i=0; i<10; ++i)
+      for (j=0; j<9; ++j)
+        arr[j+1] = arr[j];
+
   }
 }
 
-//// This loop will sol linearforcast
-//
-//void linearforcast(float arr[N])
-//{
-//    int i;
-//    float total = 0;
-//
-//    //This loop for sol
-//    for (i = 0; i < 3; i++)
-//    {
-//        total += arr[i];
-//    }
-//
-//    Serial.println(total/N);
-//}
+// This loop will sol linearforcast
+
+void linearRegression(float arr[10])
+{
+    int i, n=1;
+    float sumx, sumxsq, sumy, sumxy, a0, a1, denom;
+    sumx = 0;
+    sumxsq = 0;
+    sumy = 0;
+    sumxy = 0;
+    for(i = 0; i < 10; i++) {
+        sumx += n;
+        sumxsq += pow(n, 2);
+        sumy += arr[i];
+        sumxy += n * arr[i];
+        n++;
+    }
+    denom = 10 * sumxsq - pow(sumx, 2);
+    a0 = (sumy * sumxsq - sumx * sumxy) / denom;
+    a1 = (10 * sumxy - sumx * sumy) / denom;
+    Serial.println((a1*11)+a0);
+}

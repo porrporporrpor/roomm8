@@ -28,7 +28,7 @@ int LM1 = 7;      // left motor
 int RM1 =  6;       // right motor
 
 // temperature
-float temp = 0, arr[2];
+float temp = 0, arr[10];
 int count = 0;
 
 // game
@@ -72,10 +72,10 @@ void loop() {
   movement(distance_front, distance_left, distance_right);
 
   // temperature
-  temp = (rtc.getTemp() -32) / 1.8;;
+  temp = (rtc.getTemp() - 32) / 1.8;;
   temperature(temp, arr);
   Serial.println(count);
-  if (count<2)
+  if (count<9)
     count++;
 
   // game
