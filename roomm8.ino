@@ -1,8 +1,12 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
+#include <DS3231.h>
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
+
+//DS3231 setup
+DS3231 rtc(SDA, SCL);
 
 //Sonar Front
 int echoPin1 =12;
@@ -25,6 +29,12 @@ int LM2 = 6;      // left motor
 int RM1 = 5;
 int RM2 = 4;       // right motor
 
+// temperature
+float temp = 0, arr[10];
+int count = 0;
+
+// game
+int buttonPin = 2;
 
 void setup() {
 
@@ -36,6 +46,7 @@ void setup() {
   pinMode(echoPin3, INPUT);
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
+  pinMode(buttonPin, INPUT);
   pinMode(LM2, OUTPUT);
   pinMode(RM2, OUTPUT);
   Serial.begin(9600);
@@ -48,6 +59,7 @@ void setup() {
   lcd.print("Standby Mode");
   delay(2000);
 
+  rtc.begin();
 }
 
 void loop() {
@@ -60,4 +72,12 @@ void loop() {
   // send Distances to movement handle
   movement(distance_front, distance_left, distance_right);
 
+  // temperature
+  // temp = (rtc.getTemp() - 32) / 1.8;
+  temp = rtc.getTemp();
+  temperature(temp, arr);
+  if (count<9)
+    count++;
+  // game
+  // game(buttonPin);
 }
