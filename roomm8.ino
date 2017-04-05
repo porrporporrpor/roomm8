@@ -1,7 +1,6 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <DS3231.h>
-#define N 3
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
@@ -29,8 +28,12 @@ int LM1 = 7;      // left motor
 int RM1 =  6;       // right motor
 
 // temperature
-float temp = 0, arr[10];
+float temp = 0, arr[2];
 int count = 0;
+
+// game
+int buttonPin = 2;
+
 void setup() {
 
   pinMode(initPin1, OUTPUT);
@@ -41,6 +44,7 @@ void setup() {
   pinMode(echoPin3, INPUT);
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
+  pinMode(buttonPin, INPUT);
   Serial.begin(9600);
   lcd.begin();
   lcd.backlight();
@@ -68,9 +72,13 @@ void loop() {
   movement(distance_front, distance_left, distance_right);
 
   // temperature
-  temp = (rtc.getTemp() * (9/5)) + 32;;
+  temp = (rtc.getTemp() -32) / 1.8;;
   temperature(temp, arr);
   Serial.println(count);
-  count++;
+  if (count<2)
+    count++;
+
+  // game
+  // game(buttonPin);
 
 }
