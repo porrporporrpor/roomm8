@@ -73,9 +73,9 @@ void loop() {
   movement(distance_front, distance_left, distance_right);
 
   // temperature
-  temp = (rtc.getTemp() - 32) / 1.8;;
+  // temp = (rtc.getTemp() - 32) / 1.8;
+  temp = rtc.getTemp();
   temperature(temp, arr);
-  Serial.println(count);
   if (count<9)
     count++;
   // game
