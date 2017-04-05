@@ -20,8 +20,10 @@ int initPin3 =9;
 int distance_right =0;
 
 // Motors
-int LM1 = 7;      // left motor
-int RM1 =  6;       // right motor
+int LM1 = 7;
+int LM2 = 6;      // left motor
+int RM1 = 5;
+int RM2 = 4;       // right motor
 
 
 void setup() {
@@ -34,6 +36,8 @@ void setup() {
   pinMode(echoPin3, INPUT);
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
+  pinMode(LM2, OUTPUT);
+  pinMode(RM2, OUTPUT);
   Serial.begin(9600);
   lcd.begin();
   lcd.backlight();
@@ -55,6 +59,5 @@ void loop() {
 
   // send Distances to movement handle
   movement(distance_front, distance_left, distance_right);
-  delay(500);
 
 }
