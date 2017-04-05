@@ -24,8 +24,10 @@ int initPin3 =9;
 int distance_right =0;
 
 // Motors
-int LM1 = 7;      // left motor
-int RM1 =  6;       // right motor
+int LM1 = 7;
+int LM2 = 6;      // left motor
+int RM1 = 5;
+int RM2 = 4;       // right motor
 
 // temperature
 float temp = 0, arr[10];
@@ -45,6 +47,8 @@ void setup() {
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
   pinMode(buttonPin, INPUT);
+  pinMode(LM2, OUTPUT);
+  pinMode(RM2, OUTPUT);
   Serial.begin(9600);
   lcd.begin();
   lcd.backlight();
@@ -55,10 +59,7 @@ void setup() {
   lcd.print("Standby Mode");
   delay(2000);
 
-  // rtc
   rtc.begin();
-  
-
 }
 
 void loop() {
@@ -77,8 +78,6 @@ void loop() {
   Serial.println(count);
   if (count<9)
     count++;
-
   // game
   // game(buttonPin);
-
 }
