@@ -1,8 +1,8 @@
 void movement(int front, int left, int right) {
 
  //forward
- digitalWrite(LM1, HIGH);
- digitalWrite(LM2, LOW);
+ digitalWrite(LM1, LOW);
+ digitalWrite(LM2, HIGH);
 
  digitalWrite(RM1, LOW);
  digitalWrite(RM2, HIGH);
@@ -12,8 +12,8 @@ if (front < 30 && left >= 30 && right >= 30) {
 Serial.print("Break! --> ");
 // Which turn to use, based on distance on both side.
 if (left > right) {
-  digitalWrite(LM1, LOW);
-  digitalWrite(LM2, HIGH);
+  digitalWrite(LM1, HIGH);
+  digitalWrite(LM2, LOW);
   digitalWrite(RM1, LOW);
   digitalWrite(RM2, HIGH);
   delay(250);
@@ -21,8 +21,8 @@ if (left > right) {
   display_run_mode("Break!", "Go Left");
   delay(100);
 } else {
-  digitalWrite(LM1, HIGH);
-  digitalWrite(LM2, LOW);
+  digitalWrite(LM1, LOW);
+  digitalWrite(LM2, HIGH);
   digitalWrite(RM1, HIGH);
   digitalWrite(RM2, LOW);
   delay(250);
@@ -35,8 +35,8 @@ if (left > right) {
 if(right < 30) {
   // Front Sensor is also close too. Turn Left to avoid collision.
   if (front < 30) {
-    digitalWrite(LM1, LOW);
-    digitalWrite(LM2, HIGH);
+    digitalWrite(LM1, HIGH);
+    digitalWrite(LM2, LOW);
     digitalWrite(RM1, LOW);
     digitalWrite(RM2, HIGH);
     buzzer_too_close();
@@ -48,8 +48,8 @@ if(right < 30) {
     // Front Sensor isn't close. Avoid Right.
     digitalWrite(LM1, LOW);
     digitalWrite(LM2, LOW);
-    digitalWrite(RM1, HIGH);
-    digitalWrite(RM2, LOW);
+    digitalWrite(RM1, LOW);
+    digitalWrite(RM2, HIGH);
     delay(250);
     Serial.print("Right Avoid : ");
     display_run_mode("Right Avoid!", "none");
@@ -61,8 +61,8 @@ if(right < 30) {
   if(left < 30) {
     if (front < 30) {
       // Front Sensor is also close too. Turn Right to avoid collision.
-      digitalWrite(LM1, HIGH);
-      digitalWrite(LM2, LOW);
+      digitalWrite(LM1, LOW);
+      digitalWrite(LM2, HIGH);
       digitalWrite(RM1, HIGH);
       digitalWrite(RM2, LOW);
       delay(250);
@@ -71,8 +71,8 @@ if(right < 30) {
       delay(100);
     } else {
       // Front Sensor isn't close. Avoid Left.
-      digitalWrite(LM1, HIGH);
-      digitalWrite(LM2, LOW);
+      digitalWrite(LM1, LOW);
+      digitalWrite(LM2, HIGH);
       digitalWrite(RM1, LOW);
       digitalWrite(RM2, LOW);
       Serial.print("Left Avoid:");
@@ -80,10 +80,10 @@ if(right < 30) {
     }
   } else {
     display_run_mode("Normal", "none");
-    digitalWrite(LM1, HIGH);
-    digitalWrite(LM2, LOW);
-    digitalWrite(RM1, HIGH);
+    digitalWrite(LM1, LOW);
+    digitalWrite(LM2, HIGH);
     digitalWrite(RM1, LOW);
+    digitalWrite(RM1, HIGH);
     delay(250);
     Serial.print("Normal : ");
     delay(100);

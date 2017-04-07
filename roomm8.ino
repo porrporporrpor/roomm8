@@ -26,8 +26,8 @@ int distance_right =0;
 // Motors
 int LM1 = 7;
 int LM2 = 6;      // left motor
-int RM1 = 5;
-int RM2 = 4;       // right motor
+int RM1 = 4;
+int RM2 = 5;       // right motor
 
 // temperature
 float temp = 0, arr[10];
