@@ -39,6 +39,7 @@ if(right < 30) {
     digitalWrite(LM2, HIGH);
     digitalWrite(RM1, LOW);
     digitalWrite(RM2, HIGH);
+    buzzer_too_close();
     delay(250);
     Serial.print("Left turn : ");
     display_run_mode("Left turn!", "none");

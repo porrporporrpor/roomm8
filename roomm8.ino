@@ -36,6 +36,9 @@ int count = 0;
 // game
 int buttonPin = 2;
 
+//buzzer
+int buzzer = 3;
+
 void setup() {
 
   pinMode(initPin1, OUTPUT);
@@ -44,6 +47,7 @@ void setup() {
   pinMode(echoPin2, INPUT);
   pinMode(initPin3, OUTPUT);
   pinMode(echoPin3, INPUT);
+  pinMode(buzzer, OUTPUT);
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
   pinMode(buttonPin, INPUT);
