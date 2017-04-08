@@ -2,11 +2,19 @@
 #include <LiquidCrystal_I2C.h>
 #include <DS3231.h>
 
+//env of project
+int debug = 0;
+
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
 //DS3231 setup
 DS3231 rtc(SDA, SCL);
+
+//Function declaring
+char function[3][10] = {"Runner", "Clock", "Setting"};
+int function_called = 0;
+int function_id = 0;
 
 //Distance that ROOMM8 needs between object and itself (in cm).
 int space = 60;
@@ -14,17 +22,17 @@ int space = 60;
 //Sonar Front
 int echoPin1 =12;
 int initPin1 =13;
-int distance_front =0;
+int front;
 
 //Sonar Left
 int echoPin2 =10;
 int initPin2 =11;
-int distance_left =0;
+int left;
 
 //Sonar Right
 int echoPin3 =8;
 int initPin3 =9;
-int distance_right =0;
+int right;
 
 // Motors
 int RM1 = 7;
@@ -66,40 +74,41 @@ void setup() {
   //Logo Output
   lcd.print("-----ROOMM8-----");
   lcd.setCursor(0,1);
-  lcd.print("Standby Mode");
+  lcd.print("Booting");
   delay(2000);
 
   rtc.begin();
-  function_definder();
 }
 
 void loop() {
 
-  detect_key();
+  while (debug) {
+    debug_log();
+  }
 
-  for (int i = 0; i < 4; i++) {
-    if (val[i] == 1) {
-      Serial.println("Stop!");
-      movement_stop();
-      function_definder();
-      break;
+  if (!function_called) {
+    Serial.println("Function has not been set up!");
+    delay(1000);
+    function_definder();
+  } else {
+
+    function_caller(function_id);
+    // temperature
+    // temp = rtc.getTemp();
+    // temperature(temp, arr);
+    // if (count<9)
+    // count++;
+
+    //Detect input
+    detect_key();
+    for (int i = 0; i < 4; i++) {
+      if (val[i] == 1) {
+        Serial.println("Stop!");
+        movement_stop();
+        function_called = 0;
+        break;
+      }
     }
   }
 
-  // Ultrasonic Get Distances
-  distance_front = getDistance(initPin1, echoPin1);
-  distance_left = getDistance(initPin2, echoPin2);
-  distance_right = getDistance(initPin3, echoPin3);
-
-  // send Distances to movement handle
-  movement(distance_front, distance_left, distance_right);
-
-  // temperature
-  // temp = (rtc.getTemp() - 32) / 1.8;
-  temp = rtc.getTemp();
-  temperature(temp, arr);
-  if (count<9)
-  count++;
-  // game
-  // game(buttonPin);
 }

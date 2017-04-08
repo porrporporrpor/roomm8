@@ -11,10 +11,6 @@ void temperature(float temp, float arr[10]) {
     }
 
   }
-  for (int k = 0; k<10; k++) {
-    Serial.print(arr[k]);
-    Serial.print(" | ");
-  }
 }
 
 // This loop will sol linearforcast
@@ -39,5 +35,5 @@ void linearRegression(float arr[10])
   a0 = (sumy * sumxsq - sumx * sumxy) / denom;
   a1 = (10 * sumxy - sumx * sumy) / denom;
   Serial.print((a1*50)+a0);
-  Serial.print(" >> ");
+  Serial.println(" >> ");
 }

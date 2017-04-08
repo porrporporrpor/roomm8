@@ -8,10 +8,11 @@ void display_run_mode(char text[16], char status[16]) {
   }
 }
 
-void display_menu_mode() {
+void display_menu_mode(int point) {
   lcd.clear();
   lcd.print("-----ROOMM8-----");
   lcd.setCursor(0,1);
-  lcd.print("Menu : xxx");
-  delay(5000);
+  lcd.print("Menu : ");
+  lcd.setCursor(7,1);
+  lcd.print(function[point]);
 }
