@@ -20,7 +20,7 @@
 //   // check analog pin for the button value and save it to ButtonVal
 //   ButtonVal = analogRead(buttonPin);
 //   if(ButtonVal == current_state && counter >0)
-//   { 
+//   {
 //     counter--;
 //   }
 //   if(ButtonVal != current_state)
@@ -52,7 +52,7 @@
 //   {
 //     // stores the button number to a variable
 //     label = Button[i][0];
-//     Action();      
+//     Action();
 //   }
 // }
 //}
@@ -95,16 +95,15 @@
 //
 //  // check input is match in display
 //  for (int i=0; i<level; ++i) {
-//  
-//  }  
+//
+//  }
 //
 //}
-//      
+//
 // //Serial.println("Button =:");
 // //Serial.println(label);
 // //delay(200);
-// 
-// 
+//
+//
 //}
 //
-
