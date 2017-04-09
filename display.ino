@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 void display_run_mode(char text[16], char status[16]) {
+=======
+  void display_run_mode(char text[16], char status[16])
+{
+>>>>>>> Stashed changes
   lcd.clear();
   lcd.print(text);
   if (status != "none") {
@@ -7,6 +12,7 @@ void display_run_mode(char text[16], char status[16]) {
     lcd.print(status);
   }
 }
+<<<<<<< Updated upstream
 
 void display_menu_mode(int point) {
   lcd.clear();
@@ -16,3 +22,12 @@ void display_menu_mode(int point) {
   lcd.setCursor(7,1);
   lcd.print(function[point]);
 }
+=======
+  void display_time_mode(int hr, int minu){
+    lcd.clear();
+    lcd.print(hr);
+    lcd.print(":");
+    lcd.print(minu);
+  }
+
+>>>>>>> Stashed changes
