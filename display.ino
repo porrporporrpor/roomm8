@@ -15,9 +15,12 @@ void display_menu_mode(int point) {
   lcd.setCursor(7,1);
   lcd.print(function[point]);
 }
-void display_time_mode(int hr, int minu){
-  lcd.clear();
-  lcd.print(hr);
-  lcd.print(":");
-  lcd.print(minu);
+void display_time_mode(){
+  DateTime now = RTC.now();
+  Serial.print(now.hour(), DEC);
+  Serial.print(':');
+  Serial.print(now.minute(), DEC);
+  Serial.print(':');
+  Serial.print(now.second(), DEC);
 }
+

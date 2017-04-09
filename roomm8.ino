@@ -1,18 +1,23 @@
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <SPI.h>
-#include <RTClib.h>
-#include <Wire.h>
-#include <DS3231.h>
 
-//env of project
+#include <LiquidCrystal_I2C.h>
+//#include <SPI.h>
+//#include <RTClib.h>
+#include <Wire.h>
+//#include <DS3231.h>
+#include <SPI.h>  // not used here, but needed to prevent a RTClib compile error
+#include <RTClib.h>
+
+RTC_DS3231 RTC;
+
+
+//end of project
 int debug = 0;
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
 //DS3231 setup
-DS3231 rtc(SDA, SCL);
+//DS3231 rtc(SDA, SCL);
 // RTC_DS3231 RTC;
 
 //Function declaring
@@ -82,7 +87,10 @@ void setup() {
   lcd.print("Booting");
   delay(2000);
 
-  rtc.begin();
+  //rtc.begin();
+  Wire.begin();
+  RTC.begin();
+  int alarm_status = 0;
 }
 
 void loop() {
@@ -90,6 +98,22 @@ void loop() {
   while (debug) {
     debug_log();
   }
+  display_time_mode() //display time
+
+  if (RTC.checkIfAlarm(1)) { //alarm triggered
+    Serial.println("Alarm Triggered");
+    //call game
+    //call sound
+    delay(1000);
+    Serial.println("sample text");
+    Serial.clear();
+    if(alarm_status == 0){
+      //call game
+      //call sound
+      Serial.println("sample text");
+    }
+  }
+
 
   if (!function_called) {
     Serial.println("Function has not been set up!");
