@@ -31,29 +31,29 @@ void movement() {
         }
       }
     } else { //Front is not about to reach something.
-      if (left >= space && right >= space) {
-        if (left < space) { //Avoid Left side
-          digitalWrite(LM1, LOW);
-          digitalWrite(LM2, HIGH);
-          digitalWrite(RM1, LOW);
-          digitalWrite(RM2, LOW);
-          Serial.print("Side avoid");
-          display_run_mode(">>>>>>>>>>>>>>>>", "none");
-        } else { //Avoid Right side
+      if (left < space) { //Avoid Left side
+        digitalWrite(LM1, LOW);
+        digitalWrite(LM2, HIGH);
+        digitalWrite(RM1, LOW);
+        digitalWrite(RM2, LOW);
+        Serial.print("Side avoid");
+        display_run_mode(">>>>>>>>>>>>>>>>", "none");
+      } else {
+        if (right < space) { //Avoid Right side
           digitalWrite(LM1, LOW);
           digitalWrite(LM2, LOW);
           digitalWrite(RM1, LOW);
           digitalWrite(RM2, HIGH);
           Serial.print("Side avoid");
           display_run_mode("<<<<<<<<<<<<<<<<", "none");
+        } else {
+          digitalWrite(LM1, LOW);
+          digitalWrite(LM2, HIGH);
+          digitalWrite(RM1, LOW);
+          digitalWrite(RM2, HIGH);
+          Serial.print("Running");
+          display_run_mode("^^^^^^^^^^^^^^^^", "none");
         }
-      } else {
-        digitalWrite(LM1, LOW);
-        digitalWrite(LM2, HIGH);
-        digitalWrite(RM1, LOW);
-        digitalWrite(RM2, HIGH);
-        Serial.print("Running");
-        display_run_mode("^^^^^^^^^^^^^^^^", "none");
       }
     }
   } else {
