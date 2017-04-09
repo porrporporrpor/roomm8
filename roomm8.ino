@@ -1,27 +1,19 @@
-<<<<<<< Updated upstream
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
-#include <DS3231.h>
-
-//env of project
-int debug = 0;
-=======
-
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <SPI.h>
 #include <RTClib.h>
+#include <Wire.h>
+#include <DS3231.h>
 
-// RTC setup
-RTC_DS3231 RTC;
->>>>>>> Stashed changes
+//env of project
+int debug = 0;
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
-<<<<<<< Updated upstream
 //DS3231 setup
 DS3231 rtc(SDA, SCL);
+// RTC_DS3231 RTC;
 
 //Function declaring
 char function[3][10] = {"Runner", "Clock", "Setting"};
@@ -35,26 +27,15 @@ int space = 60;
 int echoPin1 =12;
 int initPin1 =13;
 int front;
-=======
-//Sonar Front
-int echoPin1 =12;
-int initPin1 =13;
-int distance_front =0;
->>>>>>> Stashed changes
 
 //Sonar Left
 int echoPin2 =10;
 int initPin2 =11;
-<<<<<<< Updated upstream
 int left;
-=======
-int distance_left =0;
->>>>>>> Stashed changes
 
 //Sonar Right
 int echoPin3 =8;
 int initPin3 =9;
-<<<<<<< Updated upstream
 int right;
 
 // Motors
@@ -79,33 +60,18 @@ void setup() {
   pinMode(A1, INPUT_PULLUP);
   pinMode(A2, INPUT_PULLUP);
   pinMode(A3, INPUT_PULLUP);
-=======
-int distance_right =0;
 
-// Motors
-int LM1 = 7;      // left motor
-int RM1 =  6;       // right motor
-
-
-void setup() {
-              
->>>>>>> Stashed changes
   pinMode(initPin1, OUTPUT);
   pinMode(echoPin1, INPUT);
   pinMode(initPin2, OUTPUT);
   pinMode(echoPin2, INPUT);
   pinMode(initPin3, OUTPUT);
   pinMode(echoPin3, INPUT);
-<<<<<<< Updated upstream
   pinMode(buzzer, OUTPUT);
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
   pinMode(LM2, OUTPUT);
   pinMode(RM2, OUTPUT);
-=======
-  pinMode(LM1, OUTPUT);
-  pinMode(RM1, OUTPUT);
->>>>>>> Stashed changes
   Serial.begin(9600);
   lcd.begin();
   lcd.backlight();
@@ -113,21 +79,14 @@ void setup() {
   //Logo Output
   lcd.print("-----ROOMM8-----");
   lcd.setCursor(0,1);
-<<<<<<< Updated upstream
   lcd.print("Booting");
   delay(2000);
 
   rtc.begin();
-=======
-  lcd.print("Standby Mode");
-  delay(2000);
-
->>>>>>> Stashed changes
 }
 
 void loop() {
 
-<<<<<<< Updated upstream
   while (debug) {
     debug_log();
   }
@@ -156,17 +115,4 @@ void loop() {
       }
     }
   }
-
 }
-=======
-  // Ultrasonic Get Distances
-  distance_front = getDistance(initPin1, echoPin1);
-  distance_left = getDistance(initPin2, echoPin2);
-  distance_right = getDistance(initPin3, echoPin3);
-
-  // send Distances to movement handle
-  movement(distance_front, distance_left, distance_right);
-  delay(500);
-
-}
->>>>>>> Stashed changes
