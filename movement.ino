@@ -4,94 +4,78 @@ void movement() {
   left = getDistance(initPin2, echoPin2);
   right = getDistance(initPin3, echoPin3);
 
+  if (front < space || left < space || right < space) {
+    if (front < space) { //Front side is about to reach something.
+      if (left < space && right < space) { //dead end way
+        digitalWrite(LM1, HIGH);
+        digitalWrite(LM2, LOW);
+        digitalWrite(RM1, HIGH);
+        digitalWrite(RM2, LOW);
+        Serial.print("Dead End");
+        display_run_mode("Break!", "Reverse");
+      } else {
+        if (left < space) { //Turn Right
+          digitalWrite(LM1, LOW);
+          digitalWrite(LM2, HIGH);
+          digitalWrite(RM1, HIGH);
+          digitalWrite(RM2, LOW);
+          Serial.print("Collision avoid");
+          display_run_mode("Break!", "Go Right");
+        } else { //Turn Left
+          digitalWrite(LM1, HIGH);
+          digitalWrite(LM2, LOW);
+          digitalWrite(RM1, LOW);
+          digitalWrite(RM2, HIGH);
+          Serial.print("Collision avoid");
+          display_run_mode("Break!", "Go Left");
+        }
+      }
+    } else { //Front is not about to reach something.
+      if (left >= space && right >= space) {
+        if (left < space) { //Avoid Left side
+          digitalWrite(LM1, LOW);
+          digitalWrite(LM2, HIGH);
+          digitalWrite(RM1, LOW);
+          digitalWrite(RM2, LOW);
+          Serial.print("Side avoid");
+          display_run_mode(">>>>>>>>>>>>>>>>", "none");
+        } else { //Avoid Right side
+          digitalWrite(LM1, LOW);
+          digitalWrite(LM2, LOW);
+          digitalWrite(RM1, LOW);
+          digitalWrite(RM2, HIGH);
+          Serial.print("Side avoid");
+          display_run_mode("<<<<<<<<<<<<<<<<", "none");
+        }
+      } else {
+        digitalWrite(LM1, LOW);
+        digitalWrite(LM2, HIGH);
+        digitalWrite(RM1, LOW);
+        digitalWrite(RM2, HIGH);
+        Serial.print("Running");
+        display_run_mode("^^^^^^^^^^^^^^^^", "none");
+      }
+    }
+  } else {
+    //Keep straight forward
+    digitalWrite(LM1, LOW);
+    digitalWrite(LM2, HIGH);
+    digitalWrite(RM1, LOW);
+    digitalWrite(RM2, HIGH);
+    Serial.print("Running");
+    display_run_mode("^^^^^^^^^^^^^^^^", "none");
+  }
+
   // debug
+  Serial.print(" : ");
   Serial.print(front);
   Serial.print(" ");
   Serial.print(left);
   Serial.print(" ");
   Serial.print(right);
   Serial.println();
+  delay(200);
 
-  //Front Sensor is close to some object.
-  if (front < space && left >= space && right >= space) {
-    Serial.print("Break! --> ");
-    // Which turn to use, based on distance on both side.
-    if (left > right) {
-      digitalWrite(LM1, HIGH);
-      digitalWrite(LM2, LOW);
-      digitalWrite(RM1, LOW);
-      digitalWrite(RM2, HIGH);
-      delay(100);
-      Serial.print("Left turn : ");
-      display_run_mode("Break!", "Go Left");
-    } else {
-      digitalWrite(LM1, LOW);
-      digitalWrite(LM2, HIGH);
-      digitalWrite(RM1, HIGH);
-      digitalWrite(RM2, LOW);
-      delay(100);
-      Serial.print("Right turn : ");
-      display_run_mode("Break!", "Go Right");
-    }
-  } else {
-    //Turn Left : Right Sensor is close to some object.
-    if(right < space) {
-      // Front Sensor is also close too. Turn Left to avoid collision.
-      if (front < space) {
-        digitalWrite(LM1, HIGH);
-        digitalWrite(LM2, LOW);
-        digitalWrite(RM1, LOW);
-        digitalWrite(RM2, HIGH);
-        buzzer_alarm();
-        delay(100);
-        Serial.print("Left turn : ");
-        display_run_mode("Left turn!", "none");
-      } else {
-        // Front Sensor isn't close. Avoid Right.
-        digitalWrite(LM1, LOW);
-        digitalWrite(LM2, LOW);
-        digitalWrite(RM1, LOW);
-        digitalWrite(RM2, HIGH);
-        buzzer_too_close();
-        delay(50);
-        Serial.print("Right Avoid : ");
-        display_run_mode("Right Avoid!", "none");
-      }
-
-    } else {
-      //Turn Right : Left Sensor is close to some object.
-      if(left < space) {
-        if (front < space) {
-          // Front Sensor is also close too. Turn Right to avoid collision.
-          digitalWrite(LM1, LOW);
-          digitalWrite(LM2, HIGH);
-          digitalWrite(RM1, HIGH);
-          digitalWrite(RM2, LOW);
-          delay(100);
-          buzzer_alarm();
-          Serial.print("Right turn : ");
-          display_run_mode("Right turn!", "none");
-        } else {
-          // Front Sensor isn't close. Avoid Left.
-          digitalWrite(LM1, LOW);
-          digitalWrite(LM2, HIGH);
-          digitalWrite(RM1, LOW);
-          digitalWrite(RM2, LOW);
-          buzzer_too_close();
-          delay(50);
-          Serial.print("Left Avoid:");
-          display_run_mode("Left Avoid!", "none");
-        }
-      } else {
-        display_run_mode("Normal", "none");
-        digitalWrite(LM1, LOW);
-        digitalWrite(LM2, HIGH);
-        digitalWrite(RM1, LOW);
-        digitalWrite(RM2, HIGH);
-        Serial.print("Normal : ");
-      }
-    }
-  }
 }
 
 void movement_stop() {
