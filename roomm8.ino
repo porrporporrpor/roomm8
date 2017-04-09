@@ -21,7 +21,7 @@ int function_called = 0;
 int function_id = 0;
 
 //Distance that ROOMM8 needs between object and itself (in cm).
-int space = 60;
+int space = 30;
 
 //Sonar Front
 int echoPin1 =12;
