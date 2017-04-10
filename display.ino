@@ -17,10 +17,17 @@ void display_menu_mode(int point) {
 }
 void display_time_mode(){
   DateTime now = RTC.now();
-  Serial.print(now.hour(), DEC);
-  Serial.print(':');
-  Serial.print(now.minute(), DEC);
-  Serial.print(':');
-  Serial.print(now.second(), DEC);
+  lcd.print(now.hour(), DEC);
+  lcd.print(':');
+  lcd.print(now.minute(), DEC);
+  lcd.print(':');
+  lcd.print(now.second(), DEC);
+}
+
+void display_num(int x, int y){
+  lcd.clear();
+  lcd.print(x);
+  lcd.print(":");
+  lcd.print(y);
 }
 

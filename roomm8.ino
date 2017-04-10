@@ -59,6 +59,11 @@ int val[4];
 //buzzer
 int buzzer = 3;
 
+//alarm  status
+int alarm_status = 0;
+
+//int for count
+int round_count = 0;
 void setup() {
 
   pinMode(A0, INPUT_PULLUP);
@@ -90,7 +95,6 @@ void setup() {
   //rtc.begin();
   Wire.begin();
   RTC.begin();
-  int alarm_status = 0;
 }
 
 void loop() {
@@ -98,7 +102,7 @@ void loop() {
   while (debug) {
     debug_log();
   }
-  display_time_mode() //display time
+  //display_time_mode(); //display time
 
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");
@@ -106,7 +110,7 @@ void loop() {
     //call sound
     delay(1000);
     Serial.println("sample text");
-    Serial.clear();
+    lcd.clear();
     if(alarm_status == 0){
       //call game
       //call sound
@@ -138,5 +142,9 @@ void loop() {
         break;
       }
     }
+  }
+  round_count++;
+  if(round_count <= 1000){
+    round_count = 0;
   }
 }

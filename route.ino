@@ -59,6 +59,8 @@ void function_caller(int function_id) {
   switch (function_id) {
     case 0 : movement();
     break;
+    case 1 : set_alarm();
+    break;
     default : loop();
     break;
   }
