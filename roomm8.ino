@@ -93,6 +93,9 @@ void setup() {
   RTC.begin();
 
   RTC.adjust(DateTime(__DATE__, __TIME__));
+   DateTime now = RTC.now();
+   int second = now.second();
+   randomSeed(second); 
 }
 
 void loop() {

@@ -16,6 +16,7 @@ void display_menu_mode(int point) {
   lcd.print(function[point]);
 }
 void display_time_mode(){
+  lcd.clear();
   DateTime now = RTC.now();
   lcd.print("Time : ");
   lcd.print(now.hour(), DEC);
