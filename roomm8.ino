@@ -44,6 +44,7 @@ int RM1 = 7;
 int RM2 = 6;      // left motor
 int LM1 = 4;
 int LM2 = 5;       // right motor
+int speed = 3;
 
 // temperature
 float temp = 0, arr[10];
@@ -53,7 +54,7 @@ int count = 0;
 int val[4];
 
 //buzzer
-int buzzer = 3;
+int buzzer = 2;
 
 //alarm  status
 int alarm_status = 0;
