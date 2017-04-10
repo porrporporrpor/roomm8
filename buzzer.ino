@@ -25,4 +25,8 @@ void buzzer_wakeup() {
     digitalWrite(buzzer, LOW);
     delay(50);
   }
+
+void buzzer_stop() {
+  digitalWrite(buzzer, LOW);
+}
 }

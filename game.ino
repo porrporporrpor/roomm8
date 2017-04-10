@@ -1,4 +1,4 @@
-void game() {
+void game(int val[4]) {
     int n = 4, arrow, input, count=0, i;
     int arr[4], number[4];
     // random arrow
@@ -16,24 +16,19 @@ void game() {
             Serial.print("> ");
     }
 
-    // print check arr[i]
-    // for (int i=0; i<n; i++)
-       // printf("%d ", arr[i]);
-    // printf("<-- arr\n");
-
-    // input to number array
-    for (int i=0; i<n; i++)
+    for (i=0; i<n; i++)
     {
-        scanf("%d", &input);
-        number[i] = input;
+        if (val[i] == 1 && val[i] == 0 && val[i] == 0 && val[i] == 0)
+           number[i] = 0;
+        if (val[i] == 0 && val[i] == 1 && val[i] == 0 && val[i] == 0)
+           number[i] = 1;
+        if (val[i] == 0 && val[i] == 0 && val[i] == 1 && val[i] == 0)
+           number[i] = 2;
+        if (val[i] == 0 && val[i] == 0 && val[i] == 0 && val[i] == 1)
+           number[i] = 3;
     }
-
-    // print check number[i]
-    // for (int i=0; i<n; i++)
-        // printf("%d " , number[i]);
-    // printf("<-- number\n");
-
-    for (int i=0; i<n; i++)
+       
+    for (i=0; i<n; i++)
     {
         if (number[i] != arr[i])
         {
@@ -45,6 +40,6 @@ void game() {
     if (count != 1)
     {
         Serial.print("you done\n");
-        // stop buzzer alarm function
+        buzzer_stop();
     }
 }
