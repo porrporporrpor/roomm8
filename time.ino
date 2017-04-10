@@ -13,7 +13,7 @@ void set_alarm(){
         alarm_time[1] = minu_guard(alarm_time[1]);
       }
 
-      display_num(alarm_time[0], alarm_time[1]);
+      display_alarm_set(alarm_time[0], alarm_time[1]);
       delay(500);
 
     } else {
@@ -25,7 +25,7 @@ void set_alarm(){
         }else{
           alarm_time[1] = minu_guard(alarm_time[1]);
         }
-        display_num(alarm_time[0], alarm_time[1]);
+        display_alarm_set(alarm_time[0], alarm_time[1]);
         delay(500);
       }
     }
@@ -43,8 +43,11 @@ void set_alarm(){
     }
 
       Serial.println(cursor_i);
-      RTC.setAlarm1Simple(alarm_time[0], alarm_time[1]);
 
+      if (val[0] == 1 && val[3] == 1) {
+        RTC.setAlarm1Simple(alarm_time[0], alarm_time[1]);
+        break;
+      }
   }
 }
 

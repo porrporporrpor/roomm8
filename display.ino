@@ -23,7 +23,7 @@ void display_time_mode(){
   lcd.print(now.minute(), DEC);
 }
 
-void display_num(int x, int y){
+void display_alarm_set(int x, int y){
   lcd.clear();
   lcd.print(x);
   lcd.print(":");

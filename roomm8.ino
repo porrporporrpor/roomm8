@@ -17,7 +17,7 @@ LiquidCrystal_I2C lcd(0x3F, 16, 2);
 
 //Function declaring
 const int function_register = 4;
-char function[function_register][10] = {"Runner", "Clock", "Alarm", "Setting"};
+char function[function_register][10] = {"Runner", "Clock", "Alarm", "Standby"};
 int function_called = 0;
 int function_id = 0;
 
@@ -91,6 +91,8 @@ void setup() {
   //rtc.begin();
   Wire.begin();
   RTC.begin();
+
+  RTC.adjust(DateTime(__DATE__, __TIME__));
 }
 
 void loop() {
@@ -102,6 +104,7 @@ void loop() {
 
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");
+    buzzer_wakeup();
     //call game
     //call sound
     delay(1000);

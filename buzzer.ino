@@ -17,3 +17,12 @@ void buzzer_alarm() {
     delay(100);
   }
 }
+
+void buzzer_wakeup() {
+  for(int i = 0; i<10;i++) {
+    digitalWrite(buzzer, HIGH);
+    delay(50);
+    digitalWrite(buzzer, LOW);
+    delay(50);
+  }
+}
