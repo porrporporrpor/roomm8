@@ -60,6 +60,38 @@ void display_guard_set(int guard){
   }
 }
 
+void display_game(int arrow) {
+  if (arrow == 1) {
+    lcd.print("^ ");
+  } else {
+    if (arrow == 2) {
+      lcd.print("v ");
+    } else {
+      if (arrow == 0) {
+        lcd.print("< ");
+      } else {
+        lcd.print("> ");
+      }
+    }
+  }
+}
+
+void display_game_success() {
+  lcd.clear();
+  lcd.print("Have a nice day!");
+  lcd.setCursor(0,1);
+  lcd.print("--------ROOMM8--");
+  delay(5000);
+}
+
+void display_game_fail() {
+  lcd.clear();
+  lcd.print("Try Again!");
+  lcd.setCursor(0,1);
+  lcd.print("--------ROOMM8--");
+  delay(1000);
+}
+
 //Helping function
 void leading_zero(int number) {
   if (number < 10) {

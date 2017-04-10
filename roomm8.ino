@@ -107,11 +107,11 @@ void loop() {
 
   if (alarm_pre != alarm_time[2]) {
     if (alarm_time[2] == 1) {
-      Serial.println("Alarn : On");
+      Serial.println("Alarm : On");
       RTC.turnOnAlarm(1);
     } else {
       Serial.println("Alarm : Off");
-      RTC.turnOffAlarm(0);
+      RTC.turnOffAlarm(1);
     }
     alarm_pre = alarm_time[2];
   }
@@ -134,9 +134,7 @@ void loop() {
 
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");
-    buzzer_wakeup();
-    //call game
-    //call sound
+    game();
     delay(1000);
     Serial.println("sample text");
     lcd.clear();

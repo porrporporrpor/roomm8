@@ -38,6 +38,11 @@ void set_alarm(){
       }
     }
 
+    if (val[0] == 1 && val[3] == 1) {
+      RTC.setAlarm1Simple(alarm_time[0], alarm_time[1]);
+      break;
+    }
+
     if(val[3] == 1){
       cursor_i++;
       cursor_i = cursor_i_guard(cursor_i);
@@ -49,12 +54,6 @@ void set_alarm(){
         delay(500);
       }
     }
-
-      if (val[0] == 1 && val[3] == 1) {
-        RTC.setAlarm1Simple(alarm_time[0], alarm_time[1]);
-        delay(500);
-        break;
-      }
   }
 }
 
