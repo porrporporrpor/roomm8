@@ -16,8 +16,8 @@ LiquidCrystal_I2C lcd(0x3F, 16, 2);
 // RTC_DS3231 RTC;
 
 //Function declaring
-const int function_register = 4;
-char function[function_register][10] = {"Runner", "Clock", "Alarm", "Standby"};
+const int function_register = 3;
+char function[function_register][10] = {"Runner", "Guard", "Alarm"};
 int function_called = 0;
 int function_id = 0;
 
@@ -49,6 +49,7 @@ int speed = 3;
 // temperature
 float temp = 0, arr[10];
 int count = 0;
+float temp_predict;
 
 // keypad
 int val[4];
@@ -56,11 +57,16 @@ int val[4];
 //buzzer
 int buzzer = 2;
 
-//alarm  status
+//alarm
 int alarm_status = 0;
+int alarm_time[3] = {0, 0, 0};
+int alarm_pre = -1;
 
-//int for count
-int round_count = 0;
+//guard
+int guard_enable = 0;
+int suspect = 0;
+int sample = 0;
+
 void setup() {
 
   pinMode(A0, INPUT_PULLUP);
@@ -84,8 +90,7 @@ void setup() {
   lcd.backlight();
 
   //Logo Output
-  lcd.print("-----ROOMM8-----");
-  lcd.setCursor(0,1);
+  display_standby();
   delay(2000);
 
   //rtc.begin();
@@ -93,18 +98,38 @@ void setup() {
   RTC.begin();
 
   RTC.adjust(DateTime(__DATE__, __TIME__));
-   DateTime now = RTC.now();
-   int second = now.second();
-   randomSeed(second);
+  DateTime now = RTC.now();
+  int second = now.second();
+  randomSeed(second);
 }
 
 void loop() {
 
+  if (alarm_pre != alarm_time[2]) {
+    if (alarm_time[2] == 1) {
+      Serial.println("Alarn : On");
+      RTC.turnOnAlarm(1);
+    } else {
+      Serial.println("Alarm : Off");
+      RTC.turnOffAlarm(0);
+    }
+    alarm_pre = alarm_time[2];
+  }
+
+
+  if (function_called == 0 && millis() % 1000 == 0) {
+    display_standby();
+    if (guard_enable == 1) {
+      guard();
+    }
+  }
+
+  if (function_called == 1) {
+    function_caller(function_id);
+  }
+
   while (debug) {
     debug_log();
-  }
-  if (RTC.checkAlarmEnabled(1)) {
-    Serial.println("Alarm Enabled");
   }
 
   if (RTC.checkIfAlarm(1)) { //alarm triggered
@@ -122,34 +147,24 @@ void loop() {
     }
   }
 
+  // temperature
+  temp = RTC.getTemperature();
+  temperature(temp, arr);
+  if (count<9)
+  count++;
 
-  if (!function_called) {
-    Serial.println("Function has not been set up!");
-    delay(1000);
-    function_definder();
-  } else {
-
-    function_caller(function_id);
-
-    // temperature
-    temp = RTC.getTemperature();
-    temperature(temp, arr);
-    if (count<9)
-    count++;
-
-    //Detect input
-    detect_key();
-    for (int i = 0; i < 4; i++) {
-      if (val[i] == 1) {
-        Serial.println("Stop!");
-        movement_stop();
-        function_called = 0;
-        break;
+  //Detect input
+  detect_key();
+  for (int i = 0; i < 4; i++) {
+    if (val[i] == 1) {
+      Serial.println("Stop!");
+      function_called = 0;
+      movement_stop();
+      function_definder();
+      if (function_called == 0) {
+        display_standby();
       }
+      break;
     }
-  }
-  round_count++;
-  if(round_count <= 1000){
-    round_count = 0;
   }
 }

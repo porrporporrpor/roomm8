@@ -1,6 +1,6 @@
 void set_alarm(){
-  int alarm_time[3] = {0, 0, 0};
   int cursor_i = 0;
+  display_alarm_set(alarm_time[0], alarm_time[1], alarm_time[2]);
   while(true){
     detect_key();
 
@@ -50,9 +50,9 @@ void set_alarm(){
       }
     }
 
-      if (val[0] == 1 && val[3] == 1) { 
+      if (val[0] == 1 && val[3] == 1) {
         RTC.setAlarm1Simple(alarm_time[0], alarm_time[1]);
-        RTC.turnOnAlarm(alarm_time[2]);
+        delay(500);
         break;
       }
   }

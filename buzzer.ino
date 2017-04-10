@@ -19,10 +19,23 @@ void buzzer_alarm() {
 }
 
 void buzzer_wakeup() {
-  for(int i = 0; i<10;i++) {
+  for(int i = 0; i<50;i++) {
     digitalWrite(buzzer, HIGH);
     delay(50);
     digitalWrite(buzzer, LOW);
     delay(50);
+    digitalWrite(buzzer, HIGH);
+    delay(200);
+    digitalWrite(buzzer, LOW);
+    delay(200);
+  }
+}
+
+void buzzer_alert() {
+  for(int i = 0; i<50;i++) {
+    digitalWrite(buzzer, HIGH);
+    delay(500);
+    digitalWrite(buzzer, LOW);
+    delay(500);
   }
 }

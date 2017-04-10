@@ -9,5 +9,17 @@ void debug_log() {
   Serial.print(" ");
   Serial.print(val[3]);
   Serial.println();
-  delay(500);
+
+  front = getDistance(initPin1, echoPin1);
+  left = getDistance(initPin2, echoPin2);
+  right = getDistance(initPin3, echoPin3);
+  Serial.print(" : ");
+  Serial.print(front);
+  Serial.print(" ");
+  Serial.print(left);
+  Serial.print(" ");
+  Serial.print(right);
+  Serial.println();
+
+  delay(450);
 }

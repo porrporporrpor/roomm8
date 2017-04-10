@@ -76,7 +76,7 @@ void movement() {
   Serial.print(" ");
   Serial.print(right);
   Serial.println();
-  delay(200);
+  delay(450);
 
 }
 
@@ -84,5 +84,13 @@ void movement_stop() {
   digitalWrite(LM1, LOW);
   digitalWrite(LM2, LOW);
   digitalWrite(RM1, LOW);
+  digitalWrite(RM2, LOW);
+}
+
+void movement_guard() {
+  analogWrite(speed, 50);
+  digitalWrite(LM1, LOW);
+  digitalWrite(LM2, HIGH);
+  digitalWrite(RM1, HIGH);
   digitalWrite(RM2, LOW);
 }
