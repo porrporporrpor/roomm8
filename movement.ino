@@ -4,7 +4,7 @@ void movement() {
   left = getDistance(initPin2, echoPin2);
   right = getDistance(initPin3, echoPin3);
 
-  analogWrite(speed, 100);
+  analogWrite(speed, 70);
 
   if (front < space || left < space || right < space) {
     if (front < space) { //Front side is about to reach something.

@@ -22,7 +22,7 @@ int function_called = 0;
 int function_id = 0;
 
 //Distance that ROOMM8 needs between object and itself (in cm).
-int space = 30;
+int space = 10;
 
 //Sonar Front
 int echoPin1 =12;
@@ -95,7 +95,7 @@ void setup() {
   RTC.adjust(DateTime(__DATE__, __TIME__));
    DateTime now = RTC.now();
    int second = now.second();
-   randomSeed(second); 
+   randomSeed(second);
 }
 
 void loop() {

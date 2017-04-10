@@ -9,4 +9,5 @@ void debug_log() {
   Serial.print(" ");
   Serial.print(val[3]);
   Serial.println();
+  delay(500);
 }
