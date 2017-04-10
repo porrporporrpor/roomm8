@@ -6,18 +6,6 @@ int function_definder() {
   while (true) {
     detect_key();
 
-    Serial.print("ID : ");
-    Serial.print(function_id);
-    Serial.print(" >> ");
-    Serial.print(val[0]);
-    Serial.print(" ");
-    Serial.print(val[1]);
-    Serial.print(" ");
-    Serial.print(val[2]);
-    Serial.print(" ");
-    Serial.print(val[3]);
-    Serial.println();
-
     pre_function_id = function_id;
 
     if (val[0] == 1) {
@@ -45,9 +33,9 @@ int function_definder() {
 
 int id_guard (int function_id) {
   if (function_id < 0) {
-    function_id = 2;
+    function_id = function_register-1;
   } else {
-    if (function_id > 2) {
+    if (function_id > function_register-1) {
       function_id = 0;
     }
   }
@@ -60,6 +48,8 @@ void function_caller(int function_id) {
     case 0 : movement();
     break;
     case 1 : set_alarm();
+    break;
+    case 2 : set_alarm();
     break;
     default : loop();
     break;

@@ -1,16 +1,11 @@
-
 #include <LiquidCrystal_I2C.h>
-//#include <SPI.h>
-//#include <RTClib.h>
 #include <Wire.h>
-//#include <DS3231.h>
 #include <SPI.h>  // not used here, but needed to prevent a RTClib compile error
 #include <RTClib.h>
 
 RTC_DS3231 RTC;
 
-
-//end of project
+//env of project
 int debug = 0;
 
 //LCD setup
@@ -21,7 +16,8 @@ LiquidCrystal_I2C lcd(0x3F, 16, 2);
 // RTC_DS3231 RTC;
 
 //Function declaring
-char function[3][10] = {"Runner", "Clock", "Setting"};
+const int function_register = 4;
+char function[function_register][10] = {"Runner", "Clock", "Alarm", "Setting"};
 int function_called = 0;
 int function_id = 0;
 
@@ -89,7 +85,7 @@ void setup() {
   //Logo Output
   lcd.print("-----ROOMM8-----");
   lcd.setCursor(0,1);
-  lcd.print("Booting");
+  display_time_mode();
   delay(2000);
 
   //rtc.begin();
@@ -126,11 +122,12 @@ void loop() {
   } else {
 
     function_caller(function_id);
+
     // temperature
-    // temp = rtc.getTemp();
-    // temperature(temp, arr);
-    // if (count<9)
-    // count++;
+    temp = RTC.getTemperature();
+    temperature(temp, arr);
+    if (count<9)
+    count++;
 
     //Detect input
     detect_key();
