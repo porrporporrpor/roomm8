@@ -38,4 +38,8 @@ void buzzer_alert() {
     digitalWrite(buzzer, LOW);
     delay(500);
   }
+
+void buzzer_stop() {
+  digitalWrite(buzzer, LOW);
+}
 }
