@@ -53,7 +53,7 @@ int count = 0;
 int val[4];
 
 //buzzer
-int buzzer = 3;
+int buzzer = 2;
 
 //alarm  status
 int alarm_status = 0;
@@ -85,7 +85,6 @@ void setup() {
   //Logo Output
   lcd.print("-----ROOMM8-----");
   lcd.setCursor(0,1);
-  display_time_mode();
   delay(2000);
 
   //rtc.begin();
@@ -100,7 +99,9 @@ void loop() {
   while (debug) {
     debug_log();
   }
-  //display_time_mode(); //display time
+  if (RTC.checkAlarmEnabled(1)) {
+    Serial.println("Alarm Enabled");
+  }
 
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");

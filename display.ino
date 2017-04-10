@@ -23,9 +23,18 @@ void display_time_mode(){
   lcd.print(now.minute(), DEC);
 }
 
-void display_alarm_set(int x, int y){
+void display_alarm_set(int hr, int minu, int enable){
   lcd.clear();
-  lcd.print(x);
+  lcd.print("Alarm:");
+  lcd.setCursor(0,1);
+  lcd.print(hr);
   lcd.print(":");
-  lcd.print(y);
+  lcd.print(minu);
+  lcd.print(" >> ");
+  if (enable == 1) {
+    lcd.print("ON");
+  } else {
+    lcd.print("OFF");
+  }
 }
+

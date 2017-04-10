@@ -1,5 +1,5 @@
 void set_alarm(){
-  int alarm_time[2] = {0, 0};
+  int alarm_time[3] = {0, 0, 0};
   int cursor_i = 0;
   while(true){
     detect_key();
@@ -10,10 +10,14 @@ void set_alarm(){
       if(cursor_i == 0){
         alarm_time[0] = hr_guard (alarm_time[0]);
       } else {
-        alarm_time[1] = minu_guard(alarm_time[1]);
+        if (cursor_i == 1) {
+          alarm_time[1] = minu_guard(alarm_time[1]);
+        } else {
+          alarm_time[2] = enable_guard(alarm_time[2]);
+          }
       }
 
-      display_alarm_set(alarm_time[0], alarm_time[1]);
+      display_alarm_set(alarm_time[0], alarm_time[1], alarm_time[2]);
       delay(500);
 
     } else {
@@ -23,9 +27,13 @@ void set_alarm(){
         if(cursor_i == 0){
           alarm_time[0] = hr_guard (alarm_time[0]);
         }else{
-          alarm_time[1] = minu_guard(alarm_time[1]);
+          if (cursor_i == 1) {
+            alarm_time[1] = minu_guard(alarm_time[1]);
+          } else {
+            alarm_time[2] = enable_guard(alarm_time[2]);
+            }
         }
-        display_alarm_set(alarm_time[0], alarm_time[1]);
+        display_alarm_set(alarm_time[0], alarm_time[1], alarm_time[2]);
         delay(500);
       }
     }
@@ -42,10 +50,9 @@ void set_alarm(){
       }
     }
 
-      Serial.println(cursor_i);
-
-      if (val[0] == 1 && val[3] == 1) {
+      if (val[0] == 1 && val[3] == 1) { 
         RTC.setAlarm1Simple(alarm_time[0], alarm_time[1]);
+        RTC.turnOnAlarm(alarm_time[2]);
         break;
       }
   }
@@ -63,11 +70,11 @@ int hr_guard (int hr) {
 }
 
 int cursor_i_guard(int i){
-  if(i > 1){
+  if(i > 2){
     i = 0;
   }else{
     if(i < 0){
-      i = 1;
+      i = 2;
     }
   }
   return i;
@@ -82,4 +89,15 @@ int minu_guard(int minu){
     }
   }
   return minu;
+}
+
+int enable_guard(int enable) {
+  if(enable < 0){
+    enable = 1;
+  }else{
+    if(enable > 1){
+      enable = 0;
+    }
+  }
+  return enable;
 }

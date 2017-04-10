@@ -47,7 +47,7 @@ void function_caller(int function_id) {
   switch (function_id) {
     case 0 : movement();
     break;
-    case 1 : set_alarm();
+    case 1 : display_time_mode();
     break;
     case 2 : set_alarm();
     break;
