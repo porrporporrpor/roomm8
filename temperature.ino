@@ -17,7 +17,6 @@ void temperature(float temp, float arr[10]) {
 
 void linearRegression(float arr[10])
 {
-  Serial.print("temperature will be at ");
   int i, n=1;
   float sumx, sumxsq, sumy, sumxy, a0, a1, denom;
   sumx = 0;
@@ -34,6 +33,5 @@ void linearRegression(float arr[10])
   denom = 10 * sumxsq - pow(sumx, 2);
   a0 = (sumy * sumxsq - sumx * sumxy) / denom;
   a1 = (10 * sumxy - sumx * sumy) / denom;
-  Serial.print((a1*50)+a0);
-  Serial.println(" >> ");
+  temp_predict = (a1*50)+a0;
 }

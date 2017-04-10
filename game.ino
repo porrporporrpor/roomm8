@@ -1,110 +1,91 @@
-//int j = 1; // integer used in scanning the array designating column number
-////2-dimensional array for asigning the buttons and there high and low values
-//int Button[5][3] = {{1, 837, 838}, // button 1 - up
-//                    {2, 737, 738}, // button 2 - down
-//                    {3, 610, 611}, // button 3 - left
-//                    {4, 318, 319}, // button 4 - right
-//int analogpin = 3; // analog pin to read the buttons
-//int label = 0;  // for reporting the button label
-//int counter = 0; // how many times we have seen new value
-//long time = 0;  // the last time the output pin was sampled
-//int debounce_count = 50; // number of millis/samples to consider before declaring a debounced input
-//int current_state = 0;  // the debounced input value
-//int ButtonVal[5], arrow_check;
-//
-//void game()
-//{
-//  // If we have gone on to the next millisecond
-// if (millis() != time)
-// {
-//   // check analog pin for the button value and save it to ButtonVal
-//   ButtonVal = analogRead(buttonPin);
-//   if(ButtonVal == current_state && counter >0)
-//   { 
-//     counter--;
-//   }
-//   if(ButtonVal != current_state)
-//   {
-//     counter++;
-//   }
-//   // If ButtonVal has shown the same value for long enough let's switch it
-//   if (counter >= debounce_count)
-//   {
-//     counter = 0;
-//     current_state = ButtonVal;
-//     //Checks which button or button combo has been pressed
-//     if (ButtonVal > 0)
-//     {
-//       ButtonCheck();
-//     }
-//   }
-//   time = millis();
-// }
-//}
-//
-//void ButtonCheck()
-//{
-// // loop for scanning the button array.
-// for(int i = 0; i <= 21; i++)
-// {
-//   // checks the ButtonVal against the high and low vales in the array
-//   if(ButtonVal >= Button[i][j] && ButtonVal <= Button[i][j+1])
-//   {
-//     // stores the button number to a variable
-//     label = Button[i][0];
-//     Action();      
-//   }
-// }
-//}
-//
-//void randomArrow(int buttonArrow, int index) {
-//  randomNumber = random(1, 4);
-//  switch(randomNumber) {
-//    case 1 :
-//      Serial.print("^ ");
-//      buttonArrow[index] = 'W';
-//      break;
-//    case 2 :
-//      Serial.print("v ");
-//      buttonArrow[index] = 'S';
-//      break;
-//    case 3 :
-//      Serial.print("< ");
-//      arrow_check = 3;
-//      buttonArrow[index] = 'A';
-//      break;
-//    case 4 :
-//      Serial.print("> ");
-//      arrow_check = 4;
-//      buttonArrow[index] = 'D';
-//      break;
-//    default :
-//      printf("Invalid Random\n" );
-//  }
-//}
-//
-//void inputButton(int buttonPin, int level) {
-//  for (int i=1; i<=level; ++i) {
-//    for (int j=0; j<i; ++j) {
-//      randomArrow();
-//      index++;
-//    }
-//    for (int k=0; k<i; ++k)
-//      buttonVal[k] = analogRead(buttonPin);
-//  }
-//
-//  // check input is match in display
-//  for (int i=0; i<level; ++i) {
-//  
-//  }  
-//
-//}
-//      
-// //Serial.println("Button =:");
-// //Serial.println(label);
-// //delay(200);
-// 
-// 
-//}
-//
+void game() {
+  int n = 4, arrow, input, count=0, i;
+  int arr[4], number[4];
+  int getIn = 0;
+  int time_stack = millis();
+  arrow_generator(i, n, arrow, arr);
 
+  while (true) {
+    detect_key();
+
+    if (millis()%time_stack > 1000) {
+      buzzer_wakeup();
+    }
+
+    if (val[0] == 1 && val[1] == 0 && val[2] == 0 && val[3] == 0) {
+      number[getIn] = 0;
+      display_game(0);
+      getIn++;
+      delay(500);
+    }
+    if (val[0] == 0 && val[1] == 1 && val[2] == 0 && val[3] == 0) {
+      number[getIn] = 1;
+      display_game(1);
+      getIn++;
+      delay(500);
+    }
+    if (val[0] == 0 && val[1] == 0 && val[2] == 1 && val[3] == 0) {
+      number[getIn] = 2;
+      display_game(2);
+      getIn++;
+      delay(500);
+    }
+    if (val[0] == 0 && val[1] == 0 && val[2] == 0 && val[3] == 1) {
+      number[getIn] = 3;
+      display_game(3);
+      getIn++;
+      delay(500);
+    }
+
+    if (getIn == 4) {
+      for (i=0; i<n; i++) {
+        if (number[i] != arr[i]) {
+          Serial.print("try again!\n");
+          display_game_fail();
+          arrow_generator(i, n, arrow, arr);
+          getIn = 0;
+          count = 1;
+          int arr[4], number[4];
+          break;
+        }
+      }
+      if (count != 1) {
+        Serial.print("you're done\n");
+        buzzer_stop();
+        display_game_success();
+        alarm_time[2] = 0;
+        break;
+      }
+      count = 0;
+    }
+  }
+
+}
+
+void arrow_generator(int i, int n, int arrow, int arr[4]) {
+  lcd.clear();
+  lcd.print("Wake! :");
+  // random arrow
+  for (i=0; i<n; i++) {
+    arrow = random(4);
+    arr[i] = arrow;
+    if (arrow == 1) {
+      Serial.print("^ ");
+      lcd.print("^ ");
+    } else {
+      if (arrow == 2) {
+        Serial.print("v ");
+        lcd.print("v ");
+      } else {
+        if (arrow == 0) {
+          Serial.print("< ");
+          lcd.print("< ");
+        } else {
+          Serial.print("> ");
+          lcd.print("> ");
+        }
+      }
+    }
+  }
+  lcd.setCursor(0,1);
+}
