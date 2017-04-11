@@ -22,7 +22,11 @@ int function_called = 0;
 int function_id = 0;
 
 //Distance that ROOMM8 needs between object and itself (in cm).
-int space = 10;
+int space = 20;
+int pre_distances[3] = {0,0,0};
+
+//Movemnet
+int movement_stack = 0;
 
 //Sonar Front
 int echoPin1 =12;
