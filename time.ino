@@ -140,69 +140,43 @@ int enable_guard(int enable)
  void adjust_time_function()
  {
    int cursor_adjust = 0;
-   detect_key();
    display_adjust(adjust_time[0], adjust_time[1]);
-   while (true)
-   {
-     if (val[1] == 1)
-     {
-       adjust_time[cursor_adjust]++;
-       if (cursor_adjust == 0)
-       {
-         adjust_time[0] == hr_guard(adjust_time[0]);
-       }
-       else
-       {
-         if (cursor_adjust == 1)
-         {
-           adjust_time[1] == minu_guard(adjust_time[1]);
-         }
-       }
-       display_adjust(adjust_time[0], adjust_time[1]);
-       delay(500);
-     }
-     else
-     {
-       if (val[2] == 1)
-       {
-         adjust_time[cursor_adjust]--;
-         if (cursor_adjust == 0)
-         {
-           adjust_time[0] == hr_guard(adjust_time[0]);
-         }
-         else
-         {
-           if (cursor_adjust == 1)
-           {
-             adjust_time[1] == minu_guard(adjust_time[1]);
-           }
-         }
-       }
-       display_adjust(adjust_time[0], adjust_time[1]);
-       delay(500);
-     }
-     if (val[0] == 1 && val[3] == 1)
-     {
-       RTC.adjust(DateTime(adjust_time[0], adjust_time[1]));
-       delay(500);
-       break;
-     }
-
-     if (val[3] == 1)
-     {
-       cursor_adjust++;
-       cursor_adjust = cursor_adjust_guard(cursor_adjust);
-       delay(500);
-     }
-     else
-     {
-       if (val[0] == 1)
-       {
-         cursor_adjust--;
-         cursor_adjust = cursor_adjust_guard(cursor_adjust);
-         delay(500);
-       }
-     }
+   while(true){
+    detect_key();
+    if(val[1] == 1){
+      adjust_time[cursor_adjust]++;
+      if(cursor_adjust == 0){
+        adjust_time[0] = hr_guard(adjust_time[0]);
+      }
+      if(cursor_adjust == 1){
+        adjust_time[1] = minu_guard(adjust_time[1]);
+      }
+      display_adjust(adjust_time[0], adjust_time[1]);
+      delay(500);
+    }
+    if(val[2] == 1){
+      adjust_time[cursor_adjust]--;
+      if(cursor_adjust == 0){
+        adjust_time[0] = hr_guard(adjust_time[0]);
+      }
+      if(cursor_adjust == 1){
+        adjust_time[1] = minu_guard(adjust_time[1]);
+      }
+      display_adjust(adjust_time[0], adjust_time[1]);
+      delay(500);
+    }
+    if(val[0] == 1){
+      cursor_adjust--;
+      cursor_adjust = cursor_adjust_guard(cursor_adjust);
+    }
+    if(val[3] == 1){
+      cursor_adjust++;
+      cursor_adjust = cursor_adjust_guard(cursor_adjust);
+    }
+    if(val[0] == 1 && val[3] == 1){
+      RTC.adjust(DateTime(0, 0, 0, adjust_time[0], adjust_time[1], 0));
+      break;
+    }
    }
  }
 
