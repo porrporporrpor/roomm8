@@ -67,6 +67,9 @@ int guard_enable = 0;
 int suspect = 0;
 int sample = 0;
 
+//adjust time
+int adjust_time[2] = {0, 0};
+
 void setup() {
 
   pinMode(A0, INPUT_PULLUP);
@@ -96,6 +99,13 @@ void setup() {
   //rtc.begin();
   Wire.begin();
   RTC.begin();
+
+  
+//  if(!Serial){
+  //  RTC.adjust(DateTime(0,0,0,adjust_time[0],adjust_time[1],0));
+//  }else{
+  //  RTC.adjust(DateTime(__DATE__, __TIME__));
+//  }
 
   RTC.adjust(DateTime(__DATE__, __TIME__));
   DateTime now = RTC.now();
