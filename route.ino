@@ -57,6 +57,8 @@ void function_caller(int function_id) {
     break;
     case 2 : set_alarm();
     break;
+    case 3 : adjust_time_function();
+    break;
     default : loop();
     break;
   }
