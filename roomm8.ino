@@ -16,8 +16,8 @@ LiquidCrystal_I2C lcd(0x3F, 16, 2);
 // RTC_DS3231 RTC;
 
 //Function declaring
-const int function_register = 3;
-char function[function_register][10] = {"Runner", "Guard", "Alarm"};
+const int function_register = 4;
+char function[function_register][10] = {"Runner", "Guard", "Alarm", "Clock"};
 int function_called = 0;
 int function_id = 0;
 

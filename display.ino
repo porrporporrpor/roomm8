@@ -99,13 +99,13 @@ void leading_zero(int number) {
   }
 }
 
-// void display_adjust(int hr, int minu){
-//   lcd.clear();
-//   lcd.print("Adjust time:");
-//   lcd.setCursor(0,1);
-//   leading_zero(hr);
-//   lcd.print(hr);
-//   lcd.print(":");
-//   leading_zero(minu);
-//   lcd.print(minu);
-// }
+ void display_adjust(int hr, int minu){
+   lcd.clear();
+   lcd.print("Adjust time:");
+   lcd.setCursor(0,1);
+   leading_zero(hr);
+   lcd.print(hr);
+   lcd.print(":");
+   leading_zero(minu);
+   lcd.print(minu);
+ }

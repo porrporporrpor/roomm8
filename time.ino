@@ -137,87 +137,88 @@ int enable_guard(int enable)
   return enable;
 }
 
-// void adjust_time_function()
-// {
-//   int cursor_adjust = 0;
-//   detect_key();
-//   display_adjust(adjust_time[0], adjust_time[1]);
-//   while (true)
-//   {
-//     if (val[1] == 1)
-//     {
-//       adjust_time[cursor_adjust]++;
-//       if (cursor_adjust == 0)
-//       {
-//         adjust_time[0] == hr_guard(adjust_time[0]);
-//       }
-//       else
-//       {
-//         if (cursor_adjust == 1)
-//         {
-//           adjust_time[1] == minu_guard(adjust_time[1]);
-//         }
-//       }
-//       display_adjust(adjust_time[0], adjust_time[1]);
-//       delay(500);
-//     }
-//     else
-//     {
-//       if (val[2] == 1)
-//       {
-//         adjust_time[cursor_adjust]--;
-//         if (cursor_adjust == 0)
-//         {
-//           adjust_time[0] == hr_guard(adjust_time[0]);
-//         }
-//         else
-//         {
-//           if (cursor_adjust == 1)
-//           {
-//             adjust_time[1] == minu_guard(adjust_time[1]);
-//           }
-//         }
-//       }
-//       display_adjust(adjust_time[0], adjust_time[1]);
-//       delay(500);
-//     }
-//     if (val[0] == 1 && val[3] == 1)
-//     {
-//       //RTC.setTime(adjust_time[0], adjust_time[1]);
-//       break;
-//     }
+ void adjust_time_function()
+ {
+   int cursor_adjust = 0;
+   detect_key();
+   display_adjust(adjust_time[0], adjust_time[1]);
+   while (true)
+   {
+     if (val[1] == 1)
+     {
+       adjust_time[cursor_adjust]++;
+       if (cursor_adjust == 0)
+       {
+         adjust_time[0] == hr_guard(adjust_time[0]);
+       }
+       else
+       {
+         if (cursor_adjust == 1)
+         {
+           adjust_time[1] == minu_guard(adjust_time[1]);
+         }
+       }
+       display_adjust(adjust_time[0], adjust_time[1]);
+       delay(500);
+     }
+     else
+     {
+       if (val[2] == 1)
+       {
+         adjust_time[cursor_adjust]--;
+         if (cursor_adjust == 0)
+         {
+           adjust_time[0] == hr_guard(adjust_time[0]);
+         }
+         else
+         {
+           if (cursor_adjust == 1)
+           {
+             adjust_time[1] == minu_guard(adjust_time[1]);
+           }
+         }
+       }
+       display_adjust(adjust_time[0], adjust_time[1]);
+       delay(500);
+     }
+     if (val[0] == 1 && val[3] == 1)
+     {
+       RTC.adjust(DateTime(adjust_time[0], adjust_time[1]));
+       delay(500);
+       break;
+     }
 
-//     if (val[3] == 1)
-//     {
-//       cursor_adjust++;
-//       cursor_adjust = cursor_adjust_guard(cursor_adjust);
-//       delay(500);
-//     }
-//     else
-//     {
-//       if (val[0] == 1)
-//       {
-//         cursor_adjust--;
-//         cursor_adjust = cursor_adjust_guard(cursor_adjust);
-//         delay(500);
-//       }
-//     }
-//   }
-// }
+     if (val[3] == 1)
+     {
+       cursor_adjust++;
+       cursor_adjust = cursor_adjust_guard(cursor_adjust);
+       delay(500);
+     }
+     else
+     {
+       if (val[0] == 1)
+       {
+         cursor_adjust--;
+         cursor_adjust = cursor_adjust_guard(cursor_adjust);
+         delay(500);
+       }
+     }
+   }
+ }
 
-// int cursor_adjust_guard(int i)
-// {
-//   if (i > 1)
-//   {
-//     i = 0;
-//   }
-//   else
-//   {
-//     if (i < 0)
-//     {
-//       i = 1;
-//     }
-//   }
-//   return i;
-// }
+ int cursor_adjust_guard(int i)
+ {
+   if (i > 1)
+   {
+     i = 0;
+   }
+   else
+   {
+     if (i < 0)
+     {
+       i = 1;
+     }
+   }
+   return i;
+ }
 
