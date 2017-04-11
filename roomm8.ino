@@ -100,14 +100,7 @@ void setup() {
   Wire.begin();
   RTC.begin();
 
-  
-//  if(!Serial){
-  //  RTC.adjust(DateTime(0,0,0,adjust_time[0],adjust_time[1],0));
-//  }else{
-  //  RTC.adjust(DateTime(__DATE__, __TIME__));
-//  }
-
-  RTC.adjust(DateTime(__DATE__, __TIME__));
+  //RTC.adjust(DateTime(__DATE__, __TIME__));
   DateTime now = RTC.now();
   int second = now.second();
   randomSeed(second);
