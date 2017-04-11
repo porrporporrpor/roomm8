@@ -137,11 +137,14 @@ int enable_guard(int enable)
   return enable;
 }
 
- void adjust_time_function()
- {
-   int cursor_adjust = 0;
-   display_adjust(adjust_time[0], adjust_time[1]);
-   while(true){
+void adjust_time_function()
+{
+  DateTime now = RTC.now();
+  adjust_time[0] = now.hour();
+  adjust_time[1] = now.minute();
+  int cursor_adjust = 0;
+  display_adjust(adjust_time[0], adjust_time[1]);
+  while(true){
     detect_key();
     if(val[1] == 1){
       adjust_time[cursor_adjust]++;
@@ -177,22 +180,21 @@ int enable_guard(int enable)
       RTC.adjust(DateTime(0, 0, 0, adjust_time[0], adjust_time[1], 0));
       break;
     }
-   }
- }
+  }
+}
 
- int cursor_adjust_guard(int i)
- {
-   if (i > 1)
-   {
-     i = 0;
-   }
-   else
-   {
-     if (i < 0)
-     {
-       i = 1;
-     }
-   }
-   return i;
- }
-
+int cursor_adjust_guard(int i)
+{
+  if (i > 1)
+  {
+    i = 0;
+  }
+  else
+  {
+    if (i < 0)
+    {
+      i = 1;
+    }
+  }
+  return i;
+}

@@ -1,4 +1,5 @@
 void guard() {
+  Serial.print("Guard : ");
   front = getDistance(initPin1, echoPin1);
   left = getDistance(initPin2, echoPin2);
   right = getDistance(initPin3, echoPin3);
@@ -9,7 +10,7 @@ void guard() {
   rt_left = getDistance(initPin2, echoPin2);
   rt_right = getDistance(initPin3, echoPin3);
 
-  if (rt_front - front > 15 || rt_left - left > 15 || rt_right - right > 15) {
+  if (abs(rt_front - front) > 15 || abs(rt_left - left) > 15 || abs(rt_right - right) > 15) {
     Serial.println("Detect movement");
     Serial.print(" : ");
     Serial.print(front);
@@ -19,11 +20,13 @@ void guard() {
     Serial.print(right);
     Serial.println();
     suspect++;
+  } else {
+    Serial.println("Normal");
   }
 
   if (sample == 10) {
     sample = 0;
-    if (suspect > 6) {
+    if (suspect > 4) {
       buzzer_alert();
     } else {
       suspect = 0;

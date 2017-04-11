@@ -109,3 +109,10 @@ void leading_zero(int number) {
    leading_zero(minu);
    lcd.print(minu);
  }
+
+ void display_temp_mode() {
+   lcd.clear();
+   lcd.print("<-ROOMM8-> Temperature");
+   lcd.setCursor(0,1);
+   lcd.print("Rising Dramatically");
+ }

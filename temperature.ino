@@ -1,12 +1,12 @@
-void temperature(float temp, float arr[10]) {
+void temperature(float temp, float arr[50]) {
   int i, j;
   arr[count] = temp;
-  if (count == 9) {
+  if (count == 49) {
     // uncommnet when complete linearforcast function
     linearRegression(arr);
 
     // sorting
-    for (i=1, j=0; j<10; i++,j++) {
+    for (i=1, j=0; j<50; i++,j++) {
       arr[j] = arr[i];
     }
 
@@ -15,7 +15,7 @@ void temperature(float temp, float arr[10]) {
 
 // This loop will sol linearforcast
 
-void linearRegression(float arr[10])
+void linearRegression(float arr[50])
 {
   int i, n=1;
   float sumx, sumxsq, sumy, sumxy, a0, a1, denom;
@@ -23,15 +23,24 @@ void linearRegression(float arr[10])
   sumxsq = 0;
   sumy = 0;
   sumxy = 0;
-  for(i = 0; i < 10; i++) {
+  for(i = 0; i < 50; i++) {
     sumx += n;
     sumxsq += pow(n, 2);
     sumy += arr[i];
     sumxy += n * arr[i];
     n++;
   }
-  denom = 10 * sumxsq - pow(sumx, 2);
+  denom = 50 * sumxsq - pow(sumx, 2);
   a0 = (sumy * sumxsq - sumx * sumxy) / denom;
-  a1 = (10 * sumxy - sumx * sumy) / denom;
+  a1 = (50 * sumxy - sumx * sumy) / denom;
   temp_predict = (a1*50)+a0;
+}
+
+void temp_monitor() {
+  if (temp_predict > 40) {
+    Serial.println("Temperature notices some dramatically change!");
+    display_temp_mode();
+    buzzer_alert();
+    delay(3000);
+  }
 }

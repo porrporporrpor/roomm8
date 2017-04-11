@@ -51,7 +51,7 @@ int LM2 = 5;       // right motor
 int speed = 3;
 
 // temperature
-float temp = 0, arr[10];
+float temp = 0, arr[50];
 int count = 0;
 float temp_predict;
 
@@ -104,13 +104,17 @@ void setup() {
   Wire.begin();
   RTC.begin();
 
-  //RTC.adjust(DateTime(__DATE__, __TIME__));
+  // RTC.adjust(DateTime(__DATE__, __TIME__));
   DateTime now = RTC.now();
   int second = now.second();
   randomSeed(second);
 }
 
 void loop() {
+
+  while (debug) {
+    debug_log();
+  }
 
   if (alarm_pre != alarm_time[2]) {
     if (alarm_time[2] == 1) {
@@ -135,10 +139,6 @@ void loop() {
     function_caller(function_id);
   }
 
-  while (debug) {
-    debug_log();
-  }
-
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");
     game();
@@ -155,21 +155,19 @@ void loop() {
   // temperature
   temp = RTC.getTemperature();
   temperature(temp, arr);
-  if (count<9)
+  if (count<50)
   count++;
+  temp_monitor();
 
   //Detect input
   detect_key();
-  for (int i = 0; i < 4; i++) {
-    if (val[i] == 1) {
-      Serial.println("Stop!");
-      function_called = 0;
-      movement_stop();
-      function_definder();
-      if (function_called == 0) {
-        display_standby();
-      }
-      break;
+  if (val[0] == 1 && val[3] == 1) {
+    Serial.println("Stop!");
+    function_called = 0;
+    movement_stop();
+    function_definder();
+    if (function_called == 0) {
+      display_standby();
     }
   }
 }
