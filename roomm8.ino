@@ -103,7 +103,6 @@ void setup() {
   Wire.begin();
   RTC.begin();
 
-  int time_global = millis();
   // RTC.adjust(DateTime(__DATE__, __TIME__));
   DateTime now = RTC.now();
   int second = now.second();
