@@ -62,7 +62,6 @@ int val[4];
 int buzzer = 2;
 
 //alarm
-int alarm_status = 0;
 int alarm_time[3] = {0, 0, 0};
 int alarm_pre = -1;
 
@@ -104,6 +103,7 @@ void setup() {
   Wire.begin();
   RTC.begin();
 
+  int time_global = millis();
   // RTC.adjust(DateTime(__DATE__, __TIME__));
   DateTime now = RTC.now();
   int second = now.second();
@@ -142,14 +142,7 @@ void loop() {
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");
     game();
-    delay(1000);
-    Serial.println("sample text");
     lcd.clear();
-    if(alarm_status == 0){
-      //call game
-      //call sound
-      Serial.println("sample text");
-    }
   }
 
   // temperature

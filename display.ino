@@ -116,3 +116,10 @@ void leading_zero(int number) {
    lcd.setCursor(0,1);
    lcd.print("Rising Dramatically");
  }
+
+ void display_guard_warning() {
+   lcd.clear();
+   lcd.print("<-ROOMM8-> Guard");
+   lcd.setCursor(0,1);
+   lcd.print("Moment detected!");
+ }

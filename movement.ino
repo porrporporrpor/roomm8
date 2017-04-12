@@ -83,13 +83,15 @@ pre_distances[1] = left;
 pre_distances[2] = right;
 
 // debug
-Serial.print("Average : ");
+Serial.print("= Average : ");
 Serial.print(front);
 Serial.print(" ");
 Serial.print(left);
 Serial.print(" ");
 Serial.print(right);
 Serial.println();
+
+delay(300);
 
 }
 
@@ -113,4 +115,12 @@ int distance_guard(int distance) {
     distance = 300;
   }
   return distance;
+}
+
+void movement_alert() {
+  digitalWrite(speed, 230);
+  digitalWrite(LM1, LOW);
+  digitalWrite(LM2, HIGH);
+  digitalWrite(RM1, HIGH);
+  digitalWrite(RM2, LOW);
 }
