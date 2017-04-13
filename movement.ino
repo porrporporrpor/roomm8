@@ -16,16 +16,6 @@ void movement() {
 
   analogWrite(speed, 150);
 
-  /*Movement stack is here to prevent any loop of turning by checking if ROOMM8
-  use too many sanme turn function.
-  0. Normal
-  1. Dead End
-  2. Collision Avoid -> left turn
-  3 Collision Avoid -> Right turn
-  4. Side Avoid -> Left side
-  5. Side Avoid -> Right side
-  */
-
   if (front < space || left < space || right < space) {
     if (front < space) { //Front side is about to reach something.
       if (left < space && right < space) { //dead end way
@@ -91,12 +81,24 @@ void movement() {
     movement_stack[1] = 0;
   }
 
+  /*Movement stack is here to prevent any loop of turning by checking if ROOMM8
+  use too many sanme turn function.
+  0. Normal
+  1. Dead End
+  2. Collision Avoid -> left turn
+  3 Collision Avoid -> Right turn
+  4. Side Avoid -> Left side
+  5. Side Avoid -> Right side
+  */
+
   if (movement_stack[0] == movement_stack[1] && movement_stack[1] != 0) {
     Serial.print(" << same turn I used to move.");
     if (movement_stack[2] >= 5) {
       Serial.print(" -> too many times!");
       movement_stack[2] = 0;
       movement_stack[0] = 0;
+      movement_stop();
+      delay(500);
       movement_search();
       movement_stop();
       delay(1000);
@@ -150,7 +152,7 @@ void movement_alert() {
 }
 
 void movement_search() {
-  digitalWrite(speed, 50);
+  digitalWrite(speed, 70);
   digitalWrite(LM1, HIGH);
   digitalWrite(LM2, LOW);
   digitalWrite(RM1, HIGH);
