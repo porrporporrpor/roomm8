@@ -26,7 +26,7 @@ int space = 20;
 int pre_distances[3] = {0,0,0};
 
 //Movemnet
-int movement_stack = 0;
+int movement_stack[3] = {0,0,0};
 
 //Sonar Front
 int echoPin1 =12;

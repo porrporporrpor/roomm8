@@ -16,6 +16,16 @@ void movement() {
 
   analogWrite(speed, 150);
 
+  /*Movement stack is here to prevent any loop of turning by checking if ROOMM8
+  use too many sanme turn function.
+  0. Normal
+  1. Dead End
+  2. Collision Avoid -> left turn
+  3 Collision Avoid -> Right turn
+  4. Side Avoid -> Left side
+  5. Side Avoid -> Right side
+  */
+
   if (front < space || left < space || right < space) {
     if (front < space) { //Front side is about to reach something.
       if (left < space && right < space) { //dead end way
@@ -24,6 +34,7 @@ void movement() {
         digitalWrite(RM1, HIGH);
         digitalWrite(RM2, LOW);
         Serial.print("Dead End");
+        movement_stack[1] = 1;
       } else {
         if (left < space) { //Turn Right
           digitalWrite(LM1, LOW);
@@ -31,12 +42,15 @@ void movement() {
           digitalWrite(RM1, HIGH);
           digitalWrite(RM2, LOW);
           Serial.print("Collision avoid");
+          movement_stack[1] = 2;
         } else { //Turn Left
           digitalWrite(LM1, HIGH);
           digitalWrite(LM2, LOW);
           digitalWrite(RM1, LOW);
           digitalWrite(RM2, HIGH);
           Serial.print("Collision avoid");
+          movement_stack[1] = 3;
+
         }
       }
     } else { //Front is not about to reach something.
@@ -46,6 +60,8 @@ void movement() {
         digitalWrite(RM1, LOW);
         digitalWrite(RM2, LOW);
         Serial.print("Side avoid");
+        movement_stack[1] = 4;
+
       } else {
         if (right < space) { //Avoid Right side
           digitalWrite(LM1, LOW);
@@ -53,12 +69,15 @@ void movement() {
           digitalWrite(RM1, LOW);
           digitalWrite(RM2, HIGH);
           Serial.print("Side avoid");
+          movement_stack[1] = 5;
+
         } else {
           digitalWrite(LM1, LOW);
           digitalWrite(LM2, HIGH);
           digitalWrite(RM1, LOW);
           digitalWrite(RM2, HIGH);
           Serial.print("Running");
+          movement_stack[1] = 0;
         }
       }
     }
@@ -69,6 +88,25 @@ void movement() {
     digitalWrite(RM1, LOW);
     digitalWrite(RM2, HIGH);
     Serial.print("Running");
+    movement_stack[1] = 0;
+  }
+
+  if (movement_stack[0] == movement_stack[1] && movement_stack[1] != 0) {
+    Serial.print(" << same turn I used to move.");
+    if (movement_stack[2] >= 5) {
+      Serial.print(" -> too many times!");
+      movement_stack[2] = 0;
+      movement_stack[0] = 0;
+      movement_search();
+      movement_stop();
+      delay(1000);
+    } else {
+      Serial.print(" << count this move.");
+      movement_stack[2]++;
+    }
+  } else {
+    Serial.print(" << new move or allow this move to repeat.");
+    movement_stack[0] = movement_stack[1];
   }
 
 pre_distances[0] = front;
@@ -103,17 +141,26 @@ void movement_guard() {
   digitalWrite(RM2, LOW);
 }
 
-int distance_guard(int distance) {
-  if (distance > 300) {
-    distance = 300;
-  }
-  return distance;
-}
-
 void movement_alert() {
   digitalWrite(speed, 230);
   digitalWrite(LM1, LOW);
   digitalWrite(LM2, HIGH);
   digitalWrite(RM1, HIGH);
   digitalWrite(RM2, LOW);
+}
+
+void movement_search() {
+  digitalWrite(speed, 50);
+  digitalWrite(LM1, HIGH);
+  digitalWrite(LM2, LOW);
+  digitalWrite(RM1, HIGH);
+  digitalWrite(RM2, LOW);
+  delay(1500);
+}
+
+int distance_guard(int distance) {
+  if (distance > 300) {
+    distance = 300;
+  }
+  return distance;
 }
