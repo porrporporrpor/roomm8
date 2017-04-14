@@ -83,7 +83,7 @@ void movement() {
 
   /*Movement stack is here to prevent any loop of turning by checking if ROOMM8
   use too many sanme turn function.
-  0. Normal
+  0. Normal >> always allow.
   1. Dead End
   2. Collision Avoid -> left turn
   3 Collision Avoid -> Right turn
@@ -108,7 +108,12 @@ void movement() {
     }
   } else {
     Serial.print(" << new move or allow this move to repeat.");
-    movement_stack[0] = movement_stack[1];
+    if (movement_stack[1] == 0) {
+      movement_stack[0] = 0;
+      movement_stack[2] = 0;
+    } else {
+      movement_stack[0] = movement_stack[1];
+    }
   }
 
 pre_distances[0] = front;

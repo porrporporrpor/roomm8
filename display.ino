@@ -112,9 +112,10 @@ void leading_zero(int number) {
 
  void display_temp_mode() {
    lcd.clear();
-   lcd.print("<-ROOMM8-> Temperature");
+   lcd.print("Temperature:");
    lcd.setCursor(0,1);
-   lcd.print("Rising Dramatically");
+   lcd.print("Rising to ");
+   lcd.print(temp_predict);
  }
 
  void display_guard_warning() {

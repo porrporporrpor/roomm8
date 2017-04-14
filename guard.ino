@@ -1,3 +1,6 @@
+/*Guard(main function) is the feature of ROOMM8 that keep tracking movement around itself
+and warn user if there's anything uncommon.*/
+
 void guard() {
   Serial.print("Guard : ");
   front = getDistance(initPin1, echoPin1);
