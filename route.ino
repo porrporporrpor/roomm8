@@ -1,6 +1,7 @@
 int function_definder() {
   delay(500);
   int pre_function_id;
+  function_id = 0;
   unsigned long time_stack = millis();
 
   display_menu_mode(0);

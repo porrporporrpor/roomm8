@@ -26,7 +26,7 @@ int space = 20;
 int pre_distances[3] = {0,0,0};
 
 //Movemnet
-int movement_stack = 0;
+int movement_stack[3] = {0,0,0};
 
 //Sonar Front
 int echoPin1 =12;
@@ -62,7 +62,6 @@ int val[4];
 int buzzer = 2;
 
 //alarm
-int alarm_status = 0;
 int alarm_time[3] = {0, 0, 0};
 int alarm_pre = -1;
 
@@ -142,14 +141,7 @@ void loop() {
   if (RTC.checkIfAlarm(1)) { //alarm triggered
     Serial.println("Alarm Triggered");
     game();
-    delay(1000);
-    Serial.println("sample text");
     lcd.clear();
-    if(alarm_status == 0){
-      //call game
-      //call sound
-      Serial.println("sample text");
-    }
   }
 
   // temperature

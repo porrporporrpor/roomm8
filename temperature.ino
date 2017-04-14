@@ -2,18 +2,13 @@ void temperature(float temp, float arr[50]) {
   int i, j;
   arr[count] = temp;
   if (count == 49) {
-    // uncommnet when complete linearforcast function
     linearRegression(arr);
-
-    // sorting
     for (i=1, j=0; j<50; i++,j++) {
       arr[j] = arr[i];
     }
 
   }
 }
-
-// This loop will sol linearforcast
 
 void linearRegression(float arr[50])
 {
@@ -33,7 +28,7 @@ void linearRegression(float arr[50])
   denom = 50 * sumxsq - pow(sumx, 2);
   a0 = (sumy * sumxsq - sumx * sumxy) / denom;
   a1 = (50 * sumxy - sumx * sumy) / denom;
-  temp_predict = (a1*50)+a0;
+  temp_predict = (a1*100)+a0;
 }
 
 void temp_monitor() {

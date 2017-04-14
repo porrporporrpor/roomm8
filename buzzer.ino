@@ -10,7 +10,7 @@ void buzzer_too_close() {
 }
 
 void buzzer_alarm() {
-  for(int i = 0; i<10;i++) {
+  for(int i = 0; i<50;i++) {
     digitalWrite(buzzer, HIGH);
     delay(100);
     digitalWrite(buzzer, LOW);
