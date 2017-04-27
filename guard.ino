@@ -2,34 +2,41 @@
 and warn user if there's anything uncommon.*/
 
 void guard() {
-  Serial.print("Guard : ");
-  front = getDistance(initPin1, echoPin1);
-  left = getDistance(initPin2, echoPin2);
-  right = getDistance(initPin3, echoPin3);
+
+  if (position_stack[0] == 0 && position_stack[1] == 0 && position_stack[2] == 0) {
+    Serial.println("Set guard env");
+    position_stack[0] = getDistance(initPin1, echoPin1);
+    position_stack[1] = getDistance(initPin2, echoPin2);
+    position_stack[2] = getDistance(initPin3, echoPin3);
+  }
 
   int rt_front, rt_left, rt_right;
 
   rt_front = getDistance(initPin1, echoPin1);
   rt_left = getDistance(initPin2, echoPin2);
   rt_right = getDistance(initPin3, echoPin3);
+  Serial.print("Guard : ");
 
-  if (abs(rt_front - front) > 15 || abs(rt_left - left) > 15 || abs(rt_right - right) > 15) {
-    Serial.println("Detect movement");
-    Serial.print(" : ");
-    Serial.print(front);
-    Serial.print(" ");
-    Serial.print(left);
-    Serial.print(" ");
-    Serial.print(right);
-    Serial.println();
+  if (abs(rt_front - position_stack[0]) > 15 || abs(rt_left - position_stack[1]) > 15 || abs(rt_right - position_stack[2]) > 15) {
+    Serial.print("Detect movement");
+    if (abs(rt_front - position_stack[0]) > 15) {
+      Serial.print("Front");
+    }
+    if (abs(rt_left - position_stack[1]) > 15) {
+      Serial.print("Left");
+    }
+    if (abs(rt_right - position_stack[2]) > 15) {
+      Serial.print("Right");
+    }
     suspect++;
     sample++;
   } else {
-    Serial.println("Normal");
+    Serial.print("Normal");
     if (suspect != 0) {
       sample++;
     }
   }
+  Serial.println();
 
   if (sample == 10) {
     sample = 0;

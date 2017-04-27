@@ -69,6 +69,7 @@ int alarm_pre = -1;
 int guard_enable = 0;
 int suspect = 0;
 int sample = 0;
+int position_stack[3] = {0,0,0};
 
 //adjust time
 int adjust_time[2] = {0, 0};
