@@ -14,7 +14,7 @@ void movement() {
   left = distance_guard(left);
   right = distance_guard(right);
 
-  analogWrite(speed, 150);
+  analogWrite(speed, 80);
 
   if (front < space || left < space || right < space) {
     if (front < space) { //Front side is about to reach something.
@@ -40,7 +40,6 @@ void movement() {
           digitalWrite(RM2, HIGH);
           Serial.print("Collision avoid");
           movement_stack[1] = 3;
-
         }
       }
     } else { //Front is not about to reach something.

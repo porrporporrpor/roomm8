@@ -122,5 +122,5 @@ void leading_zero(int number) {
    lcd.clear();
    lcd.print("<-ROOMM8-> Guard");
    lcd.setCursor(0,1);
-   lcd.print("Moment detected!");
+   lcd.print("Movement Alert!");
  }

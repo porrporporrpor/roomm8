@@ -3,6 +3,6 @@
 <ul>
 <li>Wake up and escape</li>
 <li>Walk around</li>
-<li>Detect user's clap</li>
-<li>Pet Caretaker</li>
+<li>Guard Mode</li>
+<li>Temperature Data</li>
 </ul>
