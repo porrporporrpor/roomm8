@@ -165,8 +165,8 @@ void movement_search() {
 }
 
 int distance_guard(int distance) {
-  if (distance > 300) {
-    distance = 300;
+  if (distance > 150) {
+    distance = 150;
   }
   return distance;
 }

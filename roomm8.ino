@@ -6,7 +6,7 @@
 RTC_DS3231 RTC;
 
 //env of project
-int debug = 1;
+int debug = 0;
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);

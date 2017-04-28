@@ -5,27 +5,33 @@ void guard() {
 
   if (position_stack[0] == 0 && position_stack[1] == 0 && position_stack[2] == 0) {
     Serial.println("Set guard env");
-    position_stack[0] = getDistance(initPin1, echoPin1);
-    position_stack[1] = getDistance(initPin2, echoPin2);
-    position_stack[2] = getDistance(initPin3, echoPin3);
+    position_stack[0] = distance_guard(getDistance(initPin1, echoPin1));
+    position_stack[1] = distance_guard(getDistance(initPin2, echoPin2));
+    position_stack[2] = distance_guard(getDistance(initPin3, echoPin3));
   }
 
   int rt_front, rt_left, rt_right;
 
-  rt_front = getDistance(initPin1, echoPin1);
-  rt_left = getDistance(initPin2, echoPin2);
-  rt_right = getDistance(initPin3, echoPin3);
+  rt_front = distance_guard(getDistance(initPin1, echoPin1));
+  rt_left = distance_guard(getDistance(initPin2, echoPin2));
+  rt_right = distance_guard(getDistance(initPin3, echoPin3));
   Serial.print("Guard : ");
 
-  if (abs(rt_front - position_stack[0]) > 15 || abs(rt_left - position_stack[1]) > 15 || abs(rt_right - position_stack[2]) > 15) {
+  Serial.print(rt_front);
+  Serial.print(" : ");
+  Serial.print(rt_left);
+  Serial.print(" : ");
+  Serial.println(rt_right);
+
+  if (abs(rt_front - position_stack[0]) > 25 || abs(rt_left - position_stack[1]) > 25 || abs(rt_right - position_stack[2]) > 25) {
     Serial.print("Detect movement");
-    if (abs(rt_front - position_stack[0]) > 15) {
+    if (abs(rt_front - position_stack[0]) > 25) {
       Serial.print("Front");
     }
-    if (abs(rt_left - position_stack[1]) > 15) {
+    if (abs(rt_left - position_stack[1]) > 25) {
       Serial.print("Left");
     }
-    if (abs(rt_right - position_stack[2]) > 15) {
+    if (abs(rt_right - position_stack[2]) > 25) {
       Serial.print("Right");
     }
     suspect++;
@@ -40,7 +46,7 @@ void guard() {
 
   if (sample == 10) {
     sample = 0;
-    if (suspect > 4) {
+    if (suspect > 7) {
       display_guard_warning();
       movement_alert();
       buzzer_alert();
