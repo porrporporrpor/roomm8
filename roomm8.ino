@@ -6,10 +6,14 @@
 RTC_DS3231 RTC;
 
 //env of project
-int debug = 0;
+int debug = 1;
 
 //LCD setup
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
+
+//DS3231 setup
+//DS3231 rtc(SDA, SCL);
+// RTC_DS3231 RTC;
 
 //Function declaring
 const int function_register = 4;
@@ -128,6 +132,10 @@ void loop() {
     display_standby();
     if (guard_enable == 1) {
       guard();
+    } else {
+      position_stack[0] = 0;
+      position_stack[1] = 0;
+      position_stack[2] = 0;
     }
   }
 
