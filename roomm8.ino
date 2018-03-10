@@ -1,19 +1,25 @@
+/*
+
+This is ROOMM8's main file which act 
+like a bridge to every files in this robot.
+
+*/
+
+//include things that use
+
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
-#include <SPI.h>  // not used here, but needed to prevent a RTClib compile error
+#include <SPI.h>
 #include <RTClib.h>
 
+//RTC_DS3231 is a Real-time Clock and Temperature sensor.
 RTC_DS3231 RTC;
 
-//env of project
+//Just a debug things so I can easily read the output. change to 1 to activate debugging
 int debug = 0;
 
-//LCD setup
+//LCD setup using I2C
 LiquidCrystal_I2C lcd(0x3F, 16, 2);
-
-//DS3231 setup
-//DS3231 rtc(SDA, SCL);
-// RTC_DS3231 RTC;
 
 //Function declaring
 const int function_register = 4;
@@ -45,9 +51,9 @@ int right;
 
 // Motors
 int RM1 = 7;
-int RM2 = 6;      // left motor
+int RM2 = 6; // left motor
 int LM1 = 4;
-int LM2 = 5;       // right motor
+int LM2 = 5; // right motor
 int speed = 3;
 
 // temperature
@@ -81,18 +87,24 @@ void setup() {
   pinMode(A2, INPUT_PULLUP);
   pinMode(A3, INPUT_PULLUP);
 
+  // ultrasonic pinMode
   pinMode(initPin1, OUTPUT);
   pinMode(echoPin1, INPUT);
   pinMode(initPin2, OUTPUT);
   pinMode(echoPin2, INPUT);
   pinMode(initPin3, OUTPUT);
   pinMode(echoPin3, INPUT);
+  // end ultrasonic pinMode
+
   pinMode(buzzer, OUTPUT);
   pinMode(LM1, OUTPUT);
   pinMode(RM1, OUTPUT);
   pinMode(LM2, OUTPUT);
   pinMode(RM2, OUTPUT);
-  Serial.begin(9600);
+
+  Serial.begin(9600); //using serial monitor
+
+  //start the lcd
   lcd.begin();
   lcd.backlight();
 
@@ -100,22 +112,21 @@ void setup() {
   display_standby();
   delay(2000);
 
-  //rtc.begin();
-  Wire.begin();
-  RTC.begin();
-
-  // RTC.adjust(DateTime(__DATE__, __TIME__));
-  DateTime now = RTC.now();
-  int second = now.second();
-  randomSeed(second);
+  Wire.begin(); // use for I2C communication
+  RTC.begin(); // use for RTC_DS3231 (Real-time Clock and Temperature)
+  DateTime now = RTC.now(); // get the time
+  int second = now.second(); // get the second
+  randomSeed(second); // use second to generate random thing
 }
 
 void loop() {
 
+  // debugging things
   while (debug) {
     debug_log();
   }
 
+  // Set up alarm on RTC
   if (alarm_pre != alarm_time[2]) {
     if (alarm_time[2] == 1) {
       Serial.println("Alarm : On");
@@ -127,7 +138,7 @@ void loop() {
     alarm_pre = alarm_time[2];
   }
 
-
+  // Route to all functions in ROOMM8
   if (function_called == 0 && millis() % 1000 == 0) {
     display_standby();
     if (guard_enable == 1) {
