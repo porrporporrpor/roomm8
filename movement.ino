@@ -81,7 +81,7 @@ void movement() {
   }
 
   /*Movement stack is here to prevent any loop of turning by checking if ROOMM8
-  use too many sanme turn function.
+  use too many same turn function.
   0. Normal >> always allow.
   1. Dead End
   2. Collision Avoid -> left turn
